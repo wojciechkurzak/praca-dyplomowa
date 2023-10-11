@@ -1,6 +1,6 @@
 import App from '../../App'
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute'
-import LoginPage from '../../pages/LoginPage'
+import LoginPage from '../../pages/LoginPage/LoginPage'
 
 export const routesConfig = [
   {

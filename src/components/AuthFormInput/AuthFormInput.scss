@@ -1,0 +1,19 @@
+.auth-form-input {
+  label {
+    display: block;
+    margin-bottom: 12px;
+    color: #fff;
+    margin-left: 12px;
+    font-size: 20px;
+  }
+
+  input {
+    background-color: #d9d9d9;
+    border-radius: 8px;
+    width: 600px;
+    height: 48px;
+    border: none;
+    font-size: 18px;
+    padding: 0 12px;
+  }
+}
