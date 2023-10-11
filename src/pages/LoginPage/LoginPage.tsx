@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../config/firebase/firebase'
 import AuthFormButton from '../../components/AuthFormButton/AuthFormButton'
 import AuthFormInput from '../../components/AuthFormInput/AuthFormInput'
 import AuthForm from '../../components/AuthForm/AuthForm'
@@ -11,7 +13,13 @@ const LoginPage = () => {
 
   const handleLogin = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    console.log('Works!')
+    const isFormValid = email && password
+
+    if (!isFormValid) return
+
+    signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log('Error code: ', error.code)
+    })
   }
 
   return (

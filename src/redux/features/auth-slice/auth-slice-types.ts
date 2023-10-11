@@ -1,7 +1,7 @@
-import { User as FirebaseUser } from 'firebase/auth'
+// import { User as FirebaseUser } from 'firebase/auth'
 
 export type AuthState = {
-  value: FirebaseUser | null
+  value: string | null
 }
 
-export type AuthStatePayload = FirebaseUser
+export type AuthStatePayload = string | null

@@ -8,10 +8,10 @@ const ProtectedRoute = ({ component }: ProtectedRouteType) => {
   const isAuth = useAppSelector((state) => state.auth.value)
 
   useEffect(() => {
-    !isAuth && navigate('/login')
+    !isAuth && navigate('/login', { replace: true })
   }, [])
 
-  return <>{component}</>
+  return component
 }
 
 export default ProtectedRoute

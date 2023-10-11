@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { auth } from '../../config/firebase/firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import AuthFormButton from '../../components/AuthFormButton/AuthFormButton'
 import AuthFormInput from '../../components/AuthFormInput/AuthFormInput'
 import AuthForm from '../../components/AuthForm/AuthForm'
@@ -12,7 +14,19 @@ const RegisterPage = () => {
 
   const handleRegister = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    console.log('Works!')
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/g
+
+    const isFormValid =
+      email.match(emailRegex) &&
+      password.match(passwordRegex) &&
+      confirmPassword === password
+
+    if (!isFormValid) return
+
+    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log('Error code: ', error.code)
+    })
   }
 
   return (
