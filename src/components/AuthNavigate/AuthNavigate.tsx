@@ -6,7 +6,7 @@ const AuthNavigate = ({ text, route }: AuthNavigateType) => {
   const navigate = useNavigate()
 
   const handleNavigate = (): void => {
-    navigate(route)
+    navigate(route, { replace: true })
   }
 
   return (
