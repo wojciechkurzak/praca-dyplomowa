@@ -16,7 +16,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className='login-page'>
+    <div className='register-page'>
       <AuthForm>
         <AuthFormInput
           label='Email'

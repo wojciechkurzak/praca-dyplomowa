@@ -1,0 +1,11 @@
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    rgb(41, 41, 41) 49%,
+    rgb(255, 105, 71) 100%
+  );
+}
