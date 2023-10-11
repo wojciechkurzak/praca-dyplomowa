@@ -13,11 +13,23 @@ const RegisterPage = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+    confirmPassword: false,
+  })
+
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/g
 
   const handleRegister = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
-    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/g
+
+    setErrors({
+      email: !email.match(emailRegex),
+      password: !password.match(passwordRegex),
+      confirmPassword: confirmPassword !== password || confirmPassword === '',
+    })
 
     if (!email || !password || !confirmPassword) {
       toast.error('Inputs cannot be empty', {
@@ -55,18 +67,27 @@ const RegisterPage = () => {
             type='email'
             value={email}
             onChange={setEmail}
+            errorMessage={errors.email ? 'Invalid email' : null}
           />
           <AuthFormInput
             label='Password'
             type='password'
             value={password}
             onChange={setPassword}
+            errorMessage={
+              errors.password
+                ? 'Minimum 8 characters,  1 uppercase letter, 1 number, 1 special character'
+                : null
+            }
           />
           <AuthFormInput
             label='Confirm password'
             type='password'
             value={confirmPassword}
             onChange={setConfirmPassword}
+            errorMessage={
+              errors.confirmPassword ? "Passwords don't match" : null
+            }
           />
           <AuthNavigate text='Already have an account?' route='/login' />
           <AuthFormButton text='Sign up' onClick={handleRegister} />

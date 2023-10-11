@@ -5,4 +5,5 @@ export type AuthFormInputType = {
   type: string
   value: string
   onChange: Dispatch<string>
+  errorMessage?: string | null
 }
