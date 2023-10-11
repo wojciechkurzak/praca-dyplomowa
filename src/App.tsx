@@ -5,6 +5,7 @@ import { auth } from './config/firebase/firebase'
 import { useAppDispatch } from './redux/hooks'
 import { changeAuthState } from './redux/features/auth-slice/auth-slice'
 import { useNavigate } from 'react-router-dom'
+import Loading from './components/Loading/Loading'
 import './App.scss'
 
 const App = () => {
@@ -29,9 +30,7 @@ const App = () => {
     }
   }, [])
 
-  return (
-    <div className='app'>{!pending ? <Outlet /> : <div>loading...</div>}</div>
-  )
+  return <div className='app'>{!pending ? <Outlet /> : <Loading />}</div>
 }
 
 export default App
