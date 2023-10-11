@@ -17,7 +17,15 @@ const LoginPage = () => {
     event.preventDefault()
     const isFormValid = email && password
 
-    if (!isFormValid) return
+    if (!isFormValid) {
+      toast.error('Inputs cannot be empty', {
+        position: 'top-center',
+        autoClose: 5000,
+        pauseOnHover: false,
+        theme: 'dark',
+      })
+      return
+    }
 
     signInWithEmailAndPassword(auth, email, password).catch(() => {
       toast.error('Wrong email or password', {

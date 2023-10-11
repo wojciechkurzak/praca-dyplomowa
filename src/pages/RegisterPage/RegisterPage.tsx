@@ -19,6 +19,16 @@ const RegisterPage = () => {
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*\W).{8,}$/g
 
+    if (!email || !password || !confirmPassword) {
+      toast.error('Inputs cannot be empty', {
+        position: 'top-center',
+        autoClose: 5000,
+        pauseOnHover: false,
+        theme: 'dark',
+      })
+      return
+    }
+
     const isFormValid =
       email.match(emailRegex) &&
       password.match(passwordRegex) &&
