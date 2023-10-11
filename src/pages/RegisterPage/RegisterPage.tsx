@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { auth } from '../../config/firebase/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { ToastContainer, toast } from 'react-toastify'
 import AuthFormButton from '../../components/AuthFormButton/AuthFormButton'
 import AuthFormInput from '../../components/AuthFormInput/AuthFormInput'
 import AuthForm from '../../components/AuthForm/AuthForm'
 import AuthNavigate from '../../components/AuthNavigate/AuthNavigate'
 import './RegisterPage.scss'
+import 'react-toastify/dist/ReactToastify.css'
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -24,36 +26,44 @@ const RegisterPage = () => {
 
     if (!isFormValid) return
 
-    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
-      console.log('Error code: ', error.code)
+    createUserWithEmailAndPassword(auth, email, password).catch(() => {
+      toast.error('Something went wrong', {
+        position: 'top-center',
+        autoClose: 5000,
+        pauseOnHover: false,
+        theme: 'dark',
+      })
     })
   }
 
   return (
-    <div className='register-page'>
-      <AuthForm>
-        <AuthFormInput
-          label='Email'
-          type='email'
-          value={email}
-          onChange={setEmail}
-        />
-        <AuthFormInput
-          label='Password'
-          type='password'
-          value={password}
-          onChange={setPassword}
-        />
-        <AuthFormInput
-          label='Confirm password'
-          type='password'
-          value={confirmPassword}
-          onChange={setConfirmPassword}
-        />
-        <AuthNavigate text='Already have an account?' route='/login' />
-        <AuthFormButton text='Sign up' onClick={handleRegister} />
-      </AuthForm>
-    </div>
+    <>
+      <div className='register-page'>
+        <AuthForm>
+          <AuthFormInput
+            label='Email'
+            type='email'
+            value={email}
+            onChange={setEmail}
+          />
+          <AuthFormInput
+            label='Password'
+            type='password'
+            value={password}
+            onChange={setPassword}
+          />
+          <AuthFormInput
+            label='Confirm password'
+            type='password'
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+          />
+          <AuthNavigate text='Already have an account?' route='/login' />
+          <AuthFormButton text='Sign up' onClick={handleRegister} />
+        </AuthForm>
+      </div>
+      <ToastContainer />
+    </>
   )
 }
 
