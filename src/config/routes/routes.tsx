@@ -1,6 +1,7 @@
 import App from '../../App'
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute'
 import LoginPage from '../../pages/LoginPage/LoginPage'
+import RegisterPage from '../../pages/RegisterPage/RegisterPage'
 
 export const routesConfig = [
   {
@@ -11,6 +12,10 @@ export const routesConfig = [
       {
         path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/register',
+        element: <RegisterPage />,
       },
       {
         path: '/home',
