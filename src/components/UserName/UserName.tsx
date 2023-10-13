@@ -1,4 +1,4 @@
-import { UserNameType } from '../../types/user-name-type'
+import { UserNameType } from './user-name-type'
 import './UserName.scss'
 
 const UserName = ({ username, size = 16, color = '#fff' }: UserNameType) => {

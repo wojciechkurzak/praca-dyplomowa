@@ -1,4 +1,4 @@
-import { UserImageType } from '../../types/user-image-type'
+import { UserImageType } from './user-image-type'
 import default_image from '../../assets/default-image.png'
 import './UserImage.scss'
 

@@ -1,4 +1,4 @@
-import { AuthNavigateType } from '../../types/auth-navigate-type'
+import { AuthNavigateType } from './auth-navigate-type'
 import { useNavigate } from 'react-router-dom'
 import './AuthNavigate.scss'
 

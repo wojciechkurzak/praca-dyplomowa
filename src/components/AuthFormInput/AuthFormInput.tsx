@@ -1,4 +1,4 @@
-import { AuthFormInputType } from '../../types/auth-form-input-type'
+import { AuthFormInputType } from './auth-form-input-type'
 import './AuthFormInput.scss'
 
 const AuthFormInput = ({

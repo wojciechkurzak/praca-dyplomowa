@@ -1,4 +1,4 @@
-import { AuthFormType } from '../../types/auth-form-type'
+import { AuthFormType } from './auth-form-type'
 import './AuthForm.scss'
 
 const AuthForm = ({ children }: AuthFormType) => {

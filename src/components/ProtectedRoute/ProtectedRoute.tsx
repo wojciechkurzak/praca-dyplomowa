@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../redux/hooks'
-import { ProtectedRouteType } from '../../types/protected-route-type'
+import { ProtectedRouteType } from './protected-route-type'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 

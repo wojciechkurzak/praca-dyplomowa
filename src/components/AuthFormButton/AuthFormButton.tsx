@@ -1,4 +1,4 @@
-import { AuthFormButtonType } from '../../types/auth-form-button-type'
+import { AuthFormButtonType } from './auth-form-button-type'
 import './AuthFormButton.scss'
 
 const AuthFormButton = ({ text, onClick }: AuthFormButtonType) => {

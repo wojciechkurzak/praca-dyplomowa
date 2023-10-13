@@ -1,4 +1,4 @@
-import { UserEmailType } from '../../types/user-email-type'
+import { UserEmailType } from './user-email-type'
 
 const UserEmail = ({ email, size, color }: UserEmailType) => {
   return (
