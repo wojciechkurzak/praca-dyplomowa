@@ -1,0 +1,34 @@
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #292929;
+  height: 100vh;
+
+  p:nth-child(1) {
+    font-size: 100px;
+    color: #fff;
+  }
+
+  p:nth-child(2) {
+    font-size: 40px;
+    color: #666;
+  }
+
+  button {
+    margin-top: 60px;
+    border: 2px solid #ff6745;
+    background-color: rgba(146, 54, 34, 0.5);
+    font-size: 24px;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ff6745;
+    }
+  }
+}
