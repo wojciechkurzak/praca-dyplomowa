@@ -1,7 +1,8 @@
 // import { User as FirebaseUser } from 'firebase/auth'
 
 export type AuthState = {
-  value: string | null
+  uid: string | null
+  username: string | null
+  email: string | null
+  imageUrl: string | null
 }
-
-export type AuthStatePayload = string | null

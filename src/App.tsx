@@ -17,10 +17,24 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(changeAuthState(user.uid))
+        dispatch(
+          changeAuthState({
+            uid: user.uid,
+            username: user.displayName,
+            email: user.email,
+            imageUrl: user.photoURL,
+          })
+        )
         navigate('/home', { replace: true })
       } else {
-        dispatch(changeAuthState(null))
+        dispatch(
+          changeAuthState({
+            uid: null,
+            username: null,
+            email: null,
+            imageUrl: null,
+          })
+        )
       }
       setPending(false)
     })

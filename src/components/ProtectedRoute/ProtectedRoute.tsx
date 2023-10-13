@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 
 const ProtectedRoute = ({ component }: ProtectedRouteType) => {
   const navigate = useNavigate()
-  const isAuth = useAppSelector((state) => state.auth.value)
+  const isAuth = useAppSelector((state) => state.auth)
 
   useEffect(() => {
     !isAuth && navigate('/login', { replace: true })
