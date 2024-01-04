@@ -45,9 +45,11 @@ const RegisterPage = () => {
 
     if (!isFormValid) return
 
-    createUserWithEmailAndPassword(auth, email, password).catch(() => {
-      toast.error('Something went wrong', toastOptions)
-    })
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => toast.success('Account created', toastOptions))
+      .catch(() => {
+        toast.error('Something went wrong', toastOptions)
+      })
   }
 
   return (
