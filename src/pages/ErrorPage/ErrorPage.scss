@@ -5,6 +5,7 @@
   flex-direction: column;
   background-color: #292929;
   height: 100vh;
+  gap: 40px;
 
   p:nth-child(1) {
     font-size: 100px;
@@ -17,18 +18,7 @@
   }
 
   button {
-    margin-top: 60px;
-    border: 2px solid #ff6745;
-    background-color: rgba(146, 54, 34, 0.5);
-    font-size: 24px;
     color: #fff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: background-color 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #ff6745;
-    }
+    font-size: 20px;
   }
 }
