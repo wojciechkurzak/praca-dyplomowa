@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { auth } from '../../config/firebase/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import AuthFormButton from '../../components/AuthFormButton/AuthFormButton'
 import AuthFormInput from '../../components/AuthFormInput/AuthFormInput'
 import AuthForm from '../../components/AuthForm/AuthForm'
 import AuthNavigate from '../../components/AuthNavigate/AuthNavigate'
-import './RegisterPage.scss'
-import 'react-toastify/dist/ReactToastify.css'
+import AuthFormName from '../../components/AuthFormName/AuthFormName'
+import { toastOptions } from '../../config/toasts/toastOptions'
+
+import '../LoginPage/AuthPage.scss'
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -32,12 +34,7 @@ const RegisterPage = () => {
     })
 
     if (!email || !password || !confirmPassword) {
-      toast.error('Inputs cannot be empty', {
-        position: 'top-center',
-        autoClose: 5000,
-        pauseOnHover: false,
-        theme: 'dark',
-      })
+      toast.error('Inputs cannot be empty', toastOptions)
       return
     }
 
@@ -49,19 +46,15 @@ const RegisterPage = () => {
     if (!isFormValid) return
 
     createUserWithEmailAndPassword(auth, email, password).catch(() => {
-      toast.error('Something went wrong', {
-        position: 'top-center',
-        autoClose: 5000,
-        pauseOnHover: false,
-        theme: 'dark',
-      })
+      toast.error('Something went wrong', toastOptions)
     })
   }
 
   return (
-    <>
-      <div className='register-page'>
-        <AuthForm>
+    <div className='auth-page'>
+      <AuthForm>
+        <AuthFormName text='Sign up' />
+        <div className='inputs-container'>
           <AuthFormInput
             label='Email'
             type='email'
@@ -89,12 +82,11 @@ const RegisterPage = () => {
               errors.confirmPassword ? "Passwords don't match" : null
             }
           />
-          <AuthNavigate text='Already have an account?' route='/login' />
-          <AuthFormButton text='Sign up' onClick={handleRegister} />
-        </AuthForm>
-      </div>
-      <ToastContainer />
-    </>
+        </div>
+        <AuthNavigate text='Already have an account?' route='/login' />
+        <AuthFormButton text='Sign up' onClick={handleRegister} />
+      </AuthForm>
+    </div>
   )
 }
 

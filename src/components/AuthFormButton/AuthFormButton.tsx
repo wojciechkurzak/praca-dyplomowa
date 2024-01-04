@@ -1,12 +1,17 @@
-import { AuthFormButtonType } from './auth-form-button-type'
-import './AuthFormButton.scss'
+import { AuthFormButtonType } from './AuthFromButtonTypes'
+import Button from '@mui/material/Button'
 
 const AuthFormButton = ({ text, onClick }: AuthFormButtonType) => {
   return (
     <>
-      <button type='submit' className='auth-form-button' onClick={onClick}>
+      <Button
+        variant='contained'
+        type='submit'
+        className='auth-form-button'
+        onClick={onClick}
+      >
         {text}
-      </button>
+      </Button>
     </>
   )
 }

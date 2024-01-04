@@ -1,4 +1,5 @@
-import { AuthFormInputType } from './auth-form-input-type'
+import { AuthFormInputType } from './AuthFormInputTypes'
+import TextField from '@mui/material/TextField'
 import './AuthFormInput.scss'
 
 const AuthFormInput = ({
@@ -10,13 +11,14 @@ const AuthFormInput = ({
 }: AuthFormInputType) => {
   return (
     <div className='auth-form-input'>
-      <label>{label}</label>
-      <input
+      <TextField
+        label={label}
+        variant='standard'
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      {errorMessage && <span className='error'>{errorMessage}</span>}
+      {errorMessage && <span className='auth-error'>{errorMessage}</span>}
     </div>
   )
 }

@@ -4,3 +4,30 @@
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
+
+body {
+  .MuiInputLabel-root {
+    font-size: 16px;
+    color: #fff !important;
+  }
+
+  .MuiInputBase-root::after {
+    border-color: #ff6745;
+  }
+
+  .MuiInputBase-root::before {
+    border-color: #fff !important;
+  }
+
+  .MuiButton-root {
+    background-color: #ff6745;
+
+    &:hover {
+      background-color: #d15539;
+    }
+  }
+
+  .MuiFormControl-root {
+    width: 100%;
+  }
+}

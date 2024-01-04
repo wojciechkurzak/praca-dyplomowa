@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase/firebase'
 import AuthFormButton from '../../components/AuthFormButton/AuthFormButton'
 import AuthFormInput from '../../components/AuthFormInput/AuthFormInput'
 import AuthForm from '../../components/AuthForm/AuthForm'
 import AuthNavigate from '../../components/AuthNavigate/AuthNavigate'
-import './LoginPage.scss'
-import 'react-toastify/dist/ReactToastify.css'
+import AuthFormName from '../../components/AuthFormName/AuthFormName'
+import { toastOptions } from '../../config/toasts/toastOptions'
+
+import './AuthPage.scss'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('')
@@ -18,29 +20,20 @@ const LoginPage = () => {
     const isFormValid = email && password
 
     if (!isFormValid) {
-      toast.error('Inputs cannot be empty', {
-        position: 'top-center',
-        autoClose: 5000,
-        pauseOnHover: false,
-        theme: 'dark',
-      })
+      toast.error('Inputs cannot be empty', toastOptions)
       return
     }
 
     signInWithEmailAndPassword(auth, email, password).catch(() => {
-      toast.error('Wrong email or password', {
-        position: 'top-center',
-        autoClose: 5000,
-        pauseOnHover: false,
-        theme: 'dark',
-      })
+      toast.error('Wrong email or password', toastOptions)
     })
   }
 
   return (
-    <>
-      <div className='login-page'>
-        <AuthForm>
+    <div className='auth-page'>
+      <AuthForm>
+        <AuthFormName text='Sign in' />
+        <div className='inputs-container'>
           <AuthFormInput
             label='Email'
             type='email'
@@ -53,12 +46,11 @@ const LoginPage = () => {
             value={password}
             onChange={setPassword}
           />
-          <AuthNavigate text='Create a new account' route='/register' />
-          <AuthFormButton text='Sign in' onClick={handleLogin} />
-        </AuthForm>
-      </div>
-      <ToastContainer />
-    </>
+        </div>
+        <AuthNavigate text='Create a new account' route='/register' />
+        <AuthFormButton text='Sign in' onClick={handleLogin} />
+      </AuthForm>
+    </div>
   )
 }
 

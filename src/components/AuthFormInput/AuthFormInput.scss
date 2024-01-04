@@ -1,27 +1,14 @@
 .auth-form-input {
-  label {
-    display: block;
-    margin-bottom: 12px;
-    color: #fff;
-    font-size: 20px;
-  }
-
   input {
-    display: block;
-    background-color: #d9d9d9;
-    border-radius: 8px;
-    width: 600px;
-    height: 48px;
-    border: none;
-    font-size: 18px;
-    padding: 12px;
-    margin-top: 4px;
+    border-radius: 4px;
+    color: #fff;
   }
 
-  .error {
+  .auth-error {
     display: block;
     color: rgb(214, 18, 18);
-    font-size: 16px;
-    margin-top: 4px;
+    font-size: 13px;
+    text-wrap: wrap;
+    margin-top: 8px;
   }
 }

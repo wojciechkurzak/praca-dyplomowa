@@ -6,7 +6,10 @@ import { useAppDispatch } from './redux/hooks'
 import { changeAuthState } from './redux/features/auth-slice/auth-slice'
 import { useNavigate } from 'react-router-dom'
 import Loading from './components/Loading/Loading'
+import { ToastContainer } from 'react-toastify'
+
 import './App.scss'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const [pending, setPending] = useState(true)
@@ -44,7 +47,12 @@ const App = () => {
     }
   }, [])
 
-  return <div className='app'>{!pending ? <Outlet /> : <Loading />}</div>
+  return (
+    <div className='app'>
+      {!pending ? <Outlet /> : <Loading />}
+      <ToastContainer />
+    </div>
+  )
 }
 
 export default App

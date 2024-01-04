@@ -1,8 +1,14 @@
 .auth-navigate {
   display: block;
-  color: #fff;
+  color: #ccc;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 15px;
+  text-decoration: underline;
   max-width: fit-content;
   align-self: center;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
 }

@@ -1,10 +1,10 @@
-import { AuthFormType } from './auth-form-type'
+import { AuthFormType } from './AuthFormTypes'
 import './AuthForm.scss'
 
 const AuthForm = ({ children }: AuthFormType) => {
   return (
-    <div className='login-form-container'>
-      <form>{children}</form>
+    <div className='auth-form-container'>
+      <form autoComplete='off'>{children}</form>
     </div>
   )
 }
