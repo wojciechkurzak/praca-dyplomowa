@@ -1,3 +1,3 @@
-export type ProtectedRouteType = {
+export type ProtectedRouteProps = {
   component: JSX.Element
 }

@@ -1,3 +1,3 @@
-export type AuthFormType = {
+export type AuthFormProps = {
   children: React.ReactNode
 }

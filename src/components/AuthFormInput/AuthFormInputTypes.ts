@@ -1,6 +1,6 @@
 import { Dispatch } from 'react'
 
-export type AuthFormInputType = {
+export type AuthFormInputProps = {
   label: string
   type: string
   value: string

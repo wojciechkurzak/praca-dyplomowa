@@ -1,8 +1,8 @@
-import { AuthNavigateType } from './AuthNavigateTypes'
+import { AuthNavigateProps } from './AuthNavigateTypes'
 import { useNavigate } from 'react-router-dom'
 import './AuthNavigate.scss'
 
-const AuthNavigate = ({ text, route }: AuthNavigateType) => {
+const AuthNavigate = ({ text, route }: AuthNavigateProps) => {
   const navigate = useNavigate()
 
   const handleNavigate = (): void => {

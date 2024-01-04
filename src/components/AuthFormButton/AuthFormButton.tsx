@@ -1,7 +1,7 @@
-import { AuthFormButtonType } from './AuthFromButtonTypes'
+import { AuthFormButtonProps } from './AuthFromButtonTypes'
 import Button from '@mui/material/Button'
 
-const AuthFormButton = ({ text, onClick }: AuthFormButtonType) => {
+const AuthFormButton = ({ text, onClick }: AuthFormButtonProps) => {
   return (
     <>
       <Button

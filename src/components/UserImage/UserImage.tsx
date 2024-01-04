@@ -1,8 +1,8 @@
-import { UserImageType } from './UserImageTypes'
+import { UserImageProps } from './UserImageTypes'
 import default_image from '../../assets/default-image.png'
 import './UserImage.scss'
 
-const UserImage = ({ imageUrl, size = 32 }: UserImageType) => {
+const UserImage = ({ imageUrl, size = 32 }: UserImageProps) => {
   return (
     <div className='user-image' style={{ width: size, height: size }}>
       <img

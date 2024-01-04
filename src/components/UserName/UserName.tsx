@@ -1,7 +1,7 @@
-import { UserNameType } from './UserNameTypes'
+import { UserNameProps } from './UserNameTypes'
 import './UserName.scss'
 
-const UserName = ({ username, size = 16, color = '#fff' }: UserNameType) => {
+const UserName = ({ username, size = 16, color = '#fff' }: UserNameProps) => {
   return (
     <div className='user-name'>
       <span style={{ fontSize: size, color: color }}>

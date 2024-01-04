@@ -1,10 +1,10 @@
 import { useAppSelector } from '../../redux/hooks'
-import { ProtectedRouteType } from './ProtectedRouteTypes'
+import { ProtectedRouteProps } from './ProtectedRouteTypes'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import Loading from '../Loading/Loading'
 
-const ProtectedRoute = ({ component }: ProtectedRouteType) => {
+const ProtectedRoute = ({ component }: ProtectedRouteProps) => {
   const navigate = useNavigate()
   const isAuth = useAppSelector((state) => state.auth.uid)
 
