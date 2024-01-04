@@ -1,25 +1,16 @@
 import { Button } from '@mui/material'
-import { useState } from 'react'
+import { NoProjectsProps } from './NoProjectsTypes'
+
 import './NoProjects.scss'
 
-const NoProjects = () => {
-  const [modal, setModal] = useState<boolean>(false)
-
-  const handleOpenModal = () => {
-    setModal(true)
-  }
-
-  const handleCloseModal = () => {
-    setModal(false)
-  }
-
+const NoProjects = ({ openModal }: NoProjectsProps) => {
   return (
     <div className='no-projects'>
       <h2>You have no projects</h2>
       <Button
         variant='contained'
         className='no-projects-button'
-        onClick={handleOpenModal}
+        onClick={openModal}
       >
         Create new project
       </Button>
