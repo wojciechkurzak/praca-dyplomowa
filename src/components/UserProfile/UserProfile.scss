@@ -18,14 +18,9 @@
     &:hover {
       background-color: #db583b;
     }
+  }
 
-    &:focus {
-      background-color: #db583b;
-    }
-
-    &:focus + .user-dropdown-settings {
-      transform: translateY(calc(100% + 10px));
-      opacity: 1;
-    }
+  .open {
+    background-color: #db583b;
   }
 }

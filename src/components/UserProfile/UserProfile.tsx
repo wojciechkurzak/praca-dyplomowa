@@ -43,7 +43,7 @@ const UserProfile = () => {
 
   return (
     <div className='user-profile'>
-      <button onClick={handleClick}>
+      <button onClick={handleClick} className={open ? 'open' : ''}>
         <UserName username={user.username} />
         <UserImage imageUrl={user.imageUrl} />
       </button>
