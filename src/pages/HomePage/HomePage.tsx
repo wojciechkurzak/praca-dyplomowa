@@ -1,11 +1,13 @@
 import HomeTopBar from '../../components/HomeTopBar/HomeTopBar'
+import NoProjects from '../../components/NoProjects/NoProjects'
 import './HomePage.scss'
 
 const HomePage = () => {
   return (
-    <div className='home-page'>
+    <main className='home-page'>
       <HomeTopBar />
-    </div>
+      <NoProjects />
+    </main>
   )
 }
 
