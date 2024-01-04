@@ -6,7 +6,7 @@ import NoProjects from '../../components/NoProjects/NoProjects'
 import './HomePage.scss'
 
 const HomePage = () => {
-  const [createProjectModal, setCreateProjectModal] = useState<boolean>(true)
+  const [createProjectModal, setCreateProjectModal] = useState<boolean>(false)
 
   const handleOpenCreateProjectModal = () => {
     setCreateProjectModal(true)
