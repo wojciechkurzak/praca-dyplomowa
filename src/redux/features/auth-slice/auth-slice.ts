@@ -18,8 +18,11 @@ const authSlice = createSlice({
       state.email = action.payload.email
       state.imageUrl = action.payload.imageUrl
     },
+    changeUsername(state, action: PayloadAction<string>) {
+      state.username = action.payload
+    },
   },
 })
 
-export const { changeAuthState } = authSlice.actions
+export const { changeAuthState, changeUsername } = authSlice.actions
 export default authSlice.reducer

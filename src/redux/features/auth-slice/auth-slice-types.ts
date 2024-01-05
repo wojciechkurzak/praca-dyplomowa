@@ -2,7 +2,7 @@
 
 export type AuthState = {
   uid: string | null
-  username: string | null
   email: string | null
+  username: string | null | undefined
   imageUrl: string | null
 }
