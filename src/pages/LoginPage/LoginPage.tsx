@@ -26,9 +26,7 @@ const LoginPage = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(() => toast.success('Signed in', toastOptions))
-      .catch(() => {
-        toast.error('Wrong email or password', toastOptions)
-      })
+      .catch(() => toast.error('Wrong email or password', toastOptions))
   }
 
   return (

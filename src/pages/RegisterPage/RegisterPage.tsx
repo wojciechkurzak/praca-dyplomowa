@@ -76,9 +76,7 @@ const RegisterPage = () => {
         })
       )
       .then(() => toast.success('Account created', toastOptions))
-      .catch(() => {
-        toast.error('Something went wrong', toastOptions)
-      })
+      .catch(() => toast.error('Something went wrong', toastOptions))
   }
 
   return (
