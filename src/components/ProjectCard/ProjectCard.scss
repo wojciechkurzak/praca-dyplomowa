@@ -1,0 +1,48 @@
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #111;
+  color: #fff;
+  padding: 16px 10px;
+  border-radius: 4px;
+  width: 300px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  height: 210px;
+
+  &:hover {
+    transform: scale(1.04);
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #ccc;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow: hidden;
+  }
+
+  span {
+    display: block;
+    font-size: 14px;
+
+    &:nth-child(2) {
+      color: #ccc;
+    }
+  }
+
+  .bottom-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
