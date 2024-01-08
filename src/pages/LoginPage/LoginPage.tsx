@@ -12,8 +12,8 @@ import { toastOptions } from '../../config/toasts/toastOptions'
 import './AuthPage.scss'
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('sex@sex.com')
+  const [password, setPassword] = useState<string>('Test123#')
 
   const handleLogin = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()

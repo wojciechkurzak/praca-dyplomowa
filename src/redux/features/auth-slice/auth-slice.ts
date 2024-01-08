@@ -6,6 +6,8 @@ const initialState: AuthState = {
   username: null,
   email: null,
   imageUrl: null,
+  ownProjects: [],
+  sharedProjects: [],
 }
 
 const authSlice = createSlice({
@@ -17,12 +19,18 @@ const authSlice = createSlice({
       state.username = action.payload.username
       state.email = action.payload.email
       state.imageUrl = action.payload.imageUrl
+      state.ownProjects = action.payload.ownProjects
+      state.sharedProjects = action.payload.sharedProjects
     },
     changeUsername(state, action: PayloadAction<string>) {
       state.username = action.payload
     },
+    changeOwnProjects(state, action: PayloadAction<string[]>) {
+      state.ownProjects = action.payload
+    },
   },
 })
 
-export const { changeAuthState, changeUsername } = authSlice.actions
+export const { changeAuthState, changeUsername, changeOwnProjects } =
+  authSlice.actions
 export default authSlice.reducer

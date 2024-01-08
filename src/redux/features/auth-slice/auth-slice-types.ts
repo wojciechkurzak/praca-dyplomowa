@@ -5,4 +5,6 @@ export type AuthState = {
   email: string | null
   username: string | null | undefined
   imageUrl: string | null
+  ownProjects: string[]
+  sharedProjects: string[]
 }

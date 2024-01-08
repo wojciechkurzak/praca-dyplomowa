@@ -2,12 +2,14 @@ import Modal from '@mui/material/Modal'
 import { CreateProjectModalProps } from './CreateProjectModalTypes'
 import { Button, TextField } from '@mui/material'
 import { useState } from 'react'
-import { addDoc, collection } from 'firebase/firestore'
+import { doc, writeBatch } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { CreateDate } from '../../utils/CreateDate'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
+import { v4 as uuid } from 'uuid'
+import { changeOwnProjects } from '../../redux/features/auth-slice/auth-slice'
 
 import './CreateProjectModal.scss'
 
@@ -19,16 +21,20 @@ const CreateProjectModal = ({
   const [description, setDescription] = useState<string>('')
 
   const user = useAppSelector((state) => state.auth)
+  const dispatch = useAppDispatch()
 
-  const handleCreateProject = () => {
+  const handleCreateProject = async () => {
     if (!user) return
 
     if (!title || !description) {
       toast.error('Inputs cannot be empty', toastOptions)
       return
     }
+    const projectID = uuid()
 
-    addDoc(collection(db, 'projects'), {
+    const batch = writeBatch(db)
+    const projectRef = doc(db, 'projects', projectID)
+    batch.set(projectRef, {
       leader: user.email,
       title: title,
       description: description,
@@ -40,8 +46,18 @@ const CreateProjectModal = ({
         },
       ],
     })
-      .then(() => toast.success('Project created', toastOptions))
-      .catch(() => toast.error("Couldn't create project", toastOptions))
+    const userRef = doc(db, 'users', user.email!)
+    batch.update(userRef, {
+      ownProjects: [...user.ownProjects, projectID],
+    })
+
+    try {
+      await batch.commit()
+      dispatch(changeOwnProjects([...user.ownProjects, projectID]))
+      toast.success('Project created', toastOptions)
+    } catch (error) {
+      toast.error("Couldn't create project", toastOptions)
+    }
 
     closeModal()
     setTitle('')
