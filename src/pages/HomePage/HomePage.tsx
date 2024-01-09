@@ -4,19 +4,21 @@ import HomeTopBar from '../../components/HomeTopBar/HomeTopBar'
 import NoProjects from '../../components/NoProjects/NoProjects'
 import { db } from '../../config/firebase/firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { Project } from '../../interfaces/Project'
 import ProjectList from '../../components/ProjectList/ProjectList'
 import Loading from '../../components/Loading/Loading'
+import { changeOwnProjects } from '../../redux/features/projects-slice/projects-slice'
 
 import './HomePage.scss'
 
 const HomePage = () => {
-  const [projects, setProjects] = useState<Project[]>([])
   const [pending, setPending] = useState<boolean>(true)
   const [createProjectModal, setCreateProjectModal] = useState<boolean>(false)
 
   const user = useAppSelector((state) => state.auth)
+  const projects = useAppSelector((state) => state.projects)
+  const dispatch = useAppDispatch()
 
   const handleGetProjectsData = async () => {
     if (user.ownProjects.length === 0) {
@@ -36,7 +38,7 @@ const HomePage = () => {
         },
       ]
     })
-    setProjects(projectsResponse)
+    dispatch(changeOwnProjects(projectsResponse))
     setPending(false)
   }
 
@@ -57,9 +59,9 @@ const HomePage = () => {
       <HomeTopBar />
       <section className='content'>
         {!pending ? (
-          projects.length !== 0 ? (
+          projects.ownProjects.length !== 0 ? (
             <ProjectList
-              projects={projects}
+              projects={projects.ownProjects}
               title='My projects'
               addProjects={true}
               openModal={handleOpenCreateProjectModal}
