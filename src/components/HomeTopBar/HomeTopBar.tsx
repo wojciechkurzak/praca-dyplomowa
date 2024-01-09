@@ -1,10 +1,12 @@
 import UserProfile from '../UserProfile/UserProfile'
+import { HomeTopBarProps } from './HomeTopBarTypes'
+
 import './HomeTopBar.scss'
 
-const HomeTopBar = () => {
+const HomeTopBar = ({ title }: HomeTopBarProps) => {
   return (
     <div className='home-top-bar'>
-      <h1>Dashboard</h1>
+      <h1>{title}</h1>
       <UserProfile />
     </div>
   )

@@ -43,7 +43,7 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    handleGetProjectsData()
+    if (user.email! !== null) handleGetProjectsData()
   }, [user])
 
   const handleOpenCreateProjectModal = () => {
@@ -54,23 +54,19 @@ const HomePage = () => {
     setCreateProjectModal(false)
   }
 
-  return (
+  return !pending ? (
     <main className='home-page'>
-      <HomeTopBar />
+      <HomeTopBar title='Dashboard' />
       <section className='content'>
-        {!pending ? (
-          projects.ownProjects.length !== 0 ? (
-            <ProjectList
-              projects={projects.ownProjects}
-              title='My projects'
-              addProjects={true}
-              openModal={handleOpenCreateProjectModal}
-            />
-          ) : (
-            <NoProjects openModal={handleOpenCreateProjectModal} />
-          )
+        {projects.ownProjects.length !== 0 ? (
+          <ProjectList
+            projects={projects.ownProjects}
+            title='My projects'
+            addProjects={true}
+            openModal={handleOpenCreateProjectModal}
+          />
         ) : (
-          <Loading />
+          <NoProjects openModal={handleOpenCreateProjectModal} />
         )}
       </section>
       <CreateProjectModal
@@ -78,6 +74,8 @@ const HomePage = () => {
         closeModal={handleCloseCreateProjectModal}
       />
     </main>
+  ) : (
+    <Loading />
   )
 }
 

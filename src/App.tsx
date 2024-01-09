@@ -4,10 +4,10 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from './config/firebase/firebase'
 import { useAppDispatch } from './redux/hooks'
 import { changeAuthState } from './redux/features/auth-slice/auth-slice'
-import { useNavigate } from 'react-router-dom'
 import Loading from './components/Loading/Loading'
 import { ToastContainer } from 'react-toastify'
 import { doc, getDoc } from 'firebase/firestore'
+import { clearProjects } from './redux/features/projects-slice/projects-slice'
 
 import './App.scss'
 import 'react-toastify/dist/ReactToastify.css'
@@ -16,7 +16,6 @@ const App = () => {
   const [pending, setPending] = useState(true)
 
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -44,7 +43,7 @@ const App = () => {
             sharedProjects: [],
           })
         )
-        navigate('/login', { replace: true })
+        dispatch(clearProjects())
       }
       setPending(false)
     })

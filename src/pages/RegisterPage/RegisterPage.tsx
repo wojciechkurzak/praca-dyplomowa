@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { auth, db } from '../../config/firebase/firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import {
@@ -14,11 +14,15 @@ import AuthNavigate from '../../components/AuthNavigate/AuthNavigate'
 import AuthFormName from '../../components/AuthFormName/AuthFormName'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { RegisterErrors } from './RegisterPageTypes'
-import { useAppDispatch } from '../../redux/hooks'
-import { changeUsername } from '../../redux/features/auth-slice/auth-slice'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import {
+  changeUID,
+  changeUsername,
+} from '../../redux/features/auth-slice/auth-slice'
+import { useNavigate } from 'react-router-dom'
 
 import '../LoginPage/AuthPage.scss'
-import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/Loading/Loading'
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>('sex@sex.com')
@@ -32,9 +36,13 @@ const RegisterPage = () => {
     confirmPassword: false,
   })
 
-  const navigate = useNavigate()
-
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const user = useAppSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (user.uid) navigate('/home', { replace: true })
+  }, [])
 
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g
   const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/g
@@ -65,6 +73,7 @@ const RegisterPage = () => {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((user: UserCredential) => {
+        dispatch(changeUID(user.user.uid))
         updateProfile(user.user, {
           displayName: username,
         }).then(() => dispatch(changeUsername(username)))
@@ -85,7 +94,7 @@ const RegisterPage = () => {
       .catch(() => toast.error('Something went wrong', toastOptions))
   }
 
-  return (
+  return !user.uid ? (
     <div className='auth-page'>
       <AuthForm>
         <AuthFormName text='Sign up' />
@@ -129,6 +138,8 @@ const RegisterPage = () => {
         <AuthFormButton text='Sign up' onClick={handleRegister} />
       </AuthForm>
     </div>
+  ) : (
+    <Loading />
   )
 }
 

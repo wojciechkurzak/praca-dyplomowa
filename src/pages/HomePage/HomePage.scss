@@ -4,6 +4,15 @@
   background-color: #292929;
   z-index: 1;
 
+  select {
+    width: 100px;
+    option {
+      span {
+        letter-spacing: 10px;
+      }
+    }
+  }
+
   .content {
     padding: 0 30px;
   }

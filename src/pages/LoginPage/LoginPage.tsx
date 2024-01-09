@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebase/firebase'
@@ -8,15 +8,24 @@ import AuthForm from '../../components/AuthForm/AuthForm'
 import AuthNavigate from '../../components/AuthNavigate/AuthNavigate'
 import AuthFormName from '../../components/AuthFormName/AuthFormName'
 import { toastOptions } from '../../config/toasts/toastOptions'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { changeUID } from '../../redux/features/auth-slice/auth-slice'
 import { useNavigate } from 'react-router-dom'
 
 import './AuthPage.scss'
+import Loading from '../../components/Loading/Loading'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('sex@sex.com')
   const [password, setPassword] = useState<string>('Test123#')
 
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const user = useAppSelector((state) => state.auth)
+
+  useEffect(() => {
+    if (user.uid) navigate('/home', { replace: true })
+  }, [])
 
   const handleLogin = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -28,14 +37,15 @@ const LoginPage = () => {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((user) => {
+        dispatch(changeUID(user.user.uid))
         navigate('/home', { replace: true })
         toast.success('Signed in', toastOptions)
       })
       .catch(() => toast.error('Wrong email or password', toastOptions))
   }
 
-  return (
+  return !user.uid ? (
     <div className='auth-page'>
       <AuthForm>
         <AuthFormName text='Sign in' />
@@ -57,6 +67,8 @@ const LoginPage = () => {
         <AuthFormButton text='Sign in' onClick={handleLogin} />
       </AuthForm>
     </div>
+  ) : (
+    <Loading />
   )
 }
 

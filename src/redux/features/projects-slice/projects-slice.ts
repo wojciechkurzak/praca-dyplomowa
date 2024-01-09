@@ -23,6 +23,10 @@ const projectsSlice = createSlice({
     addSharedProject(state, action: PayloadAction<Project>) {
       state.sharedProjects = [...state.sharedProjects, action.payload]
     },
+    clearProjects(state) {
+      state.ownProjects = []
+      state.sharedProjects = []
+    },
   },
 })
 
@@ -31,5 +35,6 @@ export const {
   changeSharedProjects,
   addOwnProject,
   addSharedProject,
+  clearProjects,
 } = projectsSlice.actions
 export default projectsSlice.reducer

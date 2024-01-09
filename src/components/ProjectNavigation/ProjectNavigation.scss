@@ -1,0 +1,20 @@
+.project-navigation {
+  background-color: #333;
+  width: 210px;
+  height: calc(100vh - 50px);
+
+  ul {
+    padding: 20px 0;
+    li {
+      color: #fff;
+      font-size: 18px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(255, 97, 61, 0.43);
+      }
+    }
+  }
+}
