@@ -18,6 +18,7 @@ import { useAppDispatch } from '../../redux/hooks'
 import { changeUsername } from '../../redux/features/auth-slice/auth-slice'
 
 import '../LoginPage/AuthPage.scss'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>('sex@sex.com')
@@ -30,6 +31,8 @@ const RegisterPage = () => {
     password: false,
     confirmPassword: false,
   })
+
+  const navigate = useNavigate()
 
   const dispatch = useAppDispatch()
 
@@ -75,7 +78,10 @@ const RegisterPage = () => {
           sharedProjects: [],
         })
       )
-      .then(() => toast.success('Account created', toastOptions))
+      .then(() => {
+        navigate('/home', { replace: true })
+        toast.success('Account created', toastOptions)
+      })
       .catch(() => toast.error('Something went wrong', toastOptions))
   }
 

@@ -1,9 +1,17 @@
 import { ProjectCardProps } from './ProjectCardTypes'
+import { useNavigate } from 'react-router-dom'
+
 import './ProjectCard.scss'
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
+  const navigate = useNavigate()
+
+  const handleNavigateToProject = () => {
+    navigate('/project', { state: project })
+  }
+
   return (
-    <div className='project-card'>
+    <div className='project-card' onClick={handleNavigateToProject}>
       <div className='upper-text'>
         <h3>{project.title}</h3>
         <p>{project.description}</p>

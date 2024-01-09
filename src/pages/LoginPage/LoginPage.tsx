@@ -8,12 +8,15 @@ import AuthForm from '../../components/AuthForm/AuthForm'
 import AuthNavigate from '../../components/AuthNavigate/AuthNavigate'
 import AuthFormName from '../../components/AuthFormName/AuthFormName'
 import { toastOptions } from '../../config/toasts/toastOptions'
+import { useNavigate } from 'react-router-dom'
 
 import './AuthPage.scss'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('sex@sex.com')
   const [password, setPassword] = useState<string>('Test123#')
+
+  const navigate = useNavigate()
 
   const handleLogin = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
@@ -25,7 +28,10 @@ const LoginPage = () => {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => toast.success('Signed in', toastOptions))
+      .then(() => {
+        navigate('/home', { replace: true })
+        toast.success('Signed in', toastOptions)
+      })
       .catch(() => toast.error('Wrong email or password', toastOptions))
   }
 

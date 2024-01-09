@@ -33,7 +33,6 @@ const App = () => {
             sharedProjects: projects!.sharedProjects,
           })
         )
-        navigate('/home', { replace: true })
       } else {
         dispatch(
           changeAuthState({
@@ -45,6 +44,7 @@ const App = () => {
             sharedProjects: [],
           })
         )
+        navigate('/login', { replace: true })
       }
       setPending(false)
     })
