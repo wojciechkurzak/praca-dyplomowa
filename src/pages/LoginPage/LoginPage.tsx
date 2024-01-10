@@ -11,9 +11,9 @@ import { toastOptions } from '../../config/toasts/toastOptions'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeUID } from '../../redux/features/auth-slice/auth-slice'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/Loading/Loading'
 
 import './AuthPage.scss'
-import Loading from '../../components/Loading/Loading'
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>('sex@sex.com')

@@ -1,5 +1,6 @@
 import { UserImageProps } from './UserImageTypes'
 import default_image from '../../assets/default-image.png'
+
 import './UserImage.scss'
 
 const UserImage = ({ imageUrl, size = 32 }: UserImageProps) => {

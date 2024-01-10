@@ -1,4 +1,5 @@
 import { AuthFormProps } from './AuthFormTypes'
+
 import './AuthForm.scss'
 
 const AuthForm = ({ children }: AuthFormProps) => {

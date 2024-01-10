@@ -7,7 +7,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   const navigate = useNavigate()
 
   const handleNavigateToProject = () => {
-    navigate('/project', { state: project })
+    navigate('/project/sprint', { state: project })
   }
 
   return (

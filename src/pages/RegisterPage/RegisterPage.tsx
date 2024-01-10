@@ -20,9 +20,9 @@ import {
   changeUsername,
 } from '../../redux/features/auth-slice/auth-slice'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/Loading/Loading'
 
 import '../LoginPage/AuthPage.scss'
-import Loading from '../../components/Loading/Loading'
 
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>('sex@sex.com')

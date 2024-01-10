@@ -1,5 +1,6 @@
 import { AuthFormInputProps } from './AuthFormInputTypes'
 import TextField from '@mui/material/TextField'
+
 import './AuthFormInput.scss'
 
 const AuthFormInput = ({

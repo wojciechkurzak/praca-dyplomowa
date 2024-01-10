@@ -1,4 +1,5 @@
 import { UserNameProps } from './UserNameTypes'
+
 import './UserName.scss'
 
 const UserName = ({ username, size = 16, color = '#fff' }: UserNameProps) => {

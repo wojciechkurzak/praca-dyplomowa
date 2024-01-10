@@ -13,20 +13,42 @@ export const routesConfig = [
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/login',
+        path: 'login',
         element: <LoginPage />,
       },
       {
-        path: '/register',
+        path: 'register',
         element: <RegisterPage />,
       },
       {
-        path: '/home',
+        path: 'home',
         element: <ProtectedRoute component={<HomePage />} />,
       },
       {
-        path: '/project',
+        path: 'project',
         element: <ProtectedRoute component={<ProjectPage />} />,
+        children: [
+          {
+            path: 'sprint',
+            element: <ProtectedRoute component={<div>sprint</div>} />,
+          },
+          {
+            path: 'backlog',
+            element: <ProtectedRoute component={<div>backlog</div>} />,
+          },
+          {
+            path: 'history',
+            element: <ProtectedRoute component={<div>history</div>} />,
+          },
+          {
+            path: 'chat',
+            element: <ProtectedRoute component={<div>chat</div>} />,
+          },
+          {
+            path: 'settings',
+            element: <ProtectedRoute component={<div>settings</div>} />,
+          },
+        ],
       },
     ],
   },
