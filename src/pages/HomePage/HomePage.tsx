@@ -21,7 +21,7 @@ const HomePage = () => {
   const dispatch = useAppDispatch()
 
   const handleGetProjectsData = async () => {
-    if (user.ownProjects.length === 0) {
+    if (user.ownProjects.length === 0 || projects.ownProjects.length !== 0) {
       setPending(false)
       return
     }
