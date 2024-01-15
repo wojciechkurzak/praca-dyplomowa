@@ -3,6 +3,20 @@ type Worker = {
   role: string
 }
 
+export interface Task {
+  id: string
+  title: string
+  status: string
+  assignment: string | null
+}
+
+export interface Sprint {
+  title: string
+  tasks: Task[]
+  startAt: string
+  endAt: string
+}
+
 export interface Project {
   id: string
   createdAt: string
@@ -10,4 +24,6 @@ export interface Project {
   description: string
   leader: string
   workers: Worker[]
+  unassignedTasks: Task[]
+  sprint: Sprint | null
 }

@@ -1,0 +1,29 @@
+.backlog-page {
+  h2 {
+    color: #fff;
+  }
+
+  .backlog-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        height: 30px;
+        padding: 0 10px;
+        line-height: 30px;
+      }
+    }
+
+    .tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}

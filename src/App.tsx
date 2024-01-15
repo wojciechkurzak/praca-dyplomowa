@@ -6,11 +6,22 @@ import { useAppDispatch } from './redux/hooks'
 import { changeAuthState } from './redux/features/auth-slice/auth-slice'
 import Loading from './components/Loading/Loading'
 import { ToastContainer } from 'react-toastify'
-import { doc, getDoc } from 'firebase/firestore'
-import { clearProjects } from './redux/features/projects-slice/projects-slice'
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore'
+import {
+  changeOwnProjects,
+  clearProjects,
+} from './redux/features/projects-slice/projects-slice'
 
 import './App.scss'
 import 'react-toastify/dist/ReactToastify.css'
+import { Project } from './interfaces/Project'
 
 const App = () => {
   const [pending, setPending] = useState(true)
@@ -32,6 +43,23 @@ const App = () => {
             sharedProjects: projects!.sharedProjects,
           })
         )
+        const projectsRef = collection(db, 'projects')
+        const q = query(
+          projectsRef,
+          where('__name__', 'in', projects!.ownProjects)
+        )
+        const querySnapshot = await getDocs(q)
+        let projectsResponse: Project[] = []
+        querySnapshot.forEach((doc) => {
+          projectsResponse = [
+            ...projectsResponse,
+            {
+              ...(doc.data() as Project),
+              id: doc.id,
+            },
+          ]
+        })
+        dispatch(changeOwnProjects(projectsResponse))
       } else {
         dispatch(
           changeAuthState({

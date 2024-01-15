@@ -34,6 +34,7 @@ const CreateProjectModal = ({
 
     const batch = writeBatch(db)
     const projectRef = doc(db, 'projects', projectID)
+
     batch.set(projectRef, {
       leader: user.email,
       title: title,
@@ -45,7 +46,10 @@ const CreateProjectModal = ({
           role: 'Leader',
         },
       ],
+      unassignedTasks: [],
+      sprint: null,
     })
+
     const userRef = doc(db, 'users', user.email!)
     batch.update(userRef, {
       ownProjects: [...user.ownProjects, projectID],

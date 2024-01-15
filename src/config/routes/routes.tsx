@@ -1,5 +1,6 @@
 import App from '../../App'
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute'
+import BacklogPage from '../../pages/BacklogPage/BacklogPage'
 import ErrorPage from '../../pages/ErrorPage/ErrorPage'
 import HomePage from '../../pages/HomePage/HomePage'
 import LoginPage from '../../pages/LoginPage/LoginPage'
@@ -34,7 +35,7 @@ export const routesConfig = [
           },
           {
             path: 'backlog',
-            element: <ProtectedRoute component={<div>backlog</div>} />,
+            element: <ProtectedRoute component={<BacklogPage />} />,
           },
           {
             path: 'history',

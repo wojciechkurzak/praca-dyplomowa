@@ -1,0 +1,19 @@
+.backlog-task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #151515;
+  padding: 10px 20px;
+  border-radius: 4px;
+
+  span {
+    display: block;
+    color: #fff;
+  }
+
+  .text-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+}
