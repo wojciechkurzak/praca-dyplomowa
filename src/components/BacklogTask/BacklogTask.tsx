@@ -10,6 +10,8 @@ import { db } from '../../config/firebase/firebase'
 import { BacklogTaskProps } from './BacklogTaskTypes'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
+import { useOutletContext } from 'react-router-dom'
+import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
 
 import './BacklogTask.scss'
 
@@ -20,9 +22,7 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
   const dispatch = useAppDispatch()
 
   const projects = useAppSelector((state) => state.projects.ownProjects)
-  const project = projects.find((project) =>
-    project.unassignedTasks.some((currentTask) => currentTask.id === task.id)
-  )
+  const { currentProject } = useOutletContext<ProjectOutlet>()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -41,25 +41,25 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
   }
 
   const handleDeleteTask = async () => {
-    const newTasks = project!.unassignedTasks.filter(
+    const newTasks = currentProject.unassignedTasks.filter(
       (currentTask) => currentTask.id !== task.id
     )
 
-    const newProjects = projects.map((currentProject) => {
-      if (currentProject.id === project!.id)
+    const newProjects = projects.map((project) => {
+      if (currentProject.id === project.id)
         return {
           ...project,
           unassignedTasks: newTasks,
         }
-      else return currentProject
+      else return project
     })
 
     try {
-      const projectRef = doc(db, 'projects', project!.id)
+      const projectRef = doc(db, 'projects', currentProject.id)
 
       await updateDoc(projectRef, {
         unassignedTasks: arrayRemove(
-          project!.unassignedTasks.find(
+          currentProject.unassignedTasks.find(
             (currentTask) => currentTask.id === task.id
           )
         ),

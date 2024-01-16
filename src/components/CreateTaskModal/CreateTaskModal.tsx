@@ -2,7 +2,7 @@ import { Button, Modal, TextField } from '@mui/material'
 import { useState } from 'react'
 import { CreateTaskModalProps } from './CreateTaskModalTypes'
 import { v4 as uuid } from 'uuid'
-import { useLocation } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeOwnProjects } from '../../redux/features/projects-slice/projects-slice'
 import { Project } from '../../interfaces/Project'
@@ -10,13 +10,14 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { toast } from 'react-toastify'
+import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
 
 import './CreateTaskModal.scss'
 
 const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
   const [title, setTitle] = useState<string>('')
 
-  const { state } = useLocation()
+  const { currentProject } = useOutletContext<ProjectOutlet>()
   const projects = useAppSelector((state) => state.projects.ownProjects)
   const dispatch = useAppDispatch()
 
@@ -28,7 +29,7 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
       assignment: null,
     }
     const newProjects = projects.map((project) => {
-      if (project.id === state.id)
+      if (project.id === currentProject.id)
         return {
           ...project,
           unassignedTasks: [...project.unassignedTasks, newTask],
@@ -37,7 +38,7 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
     })
 
     try {
-      const projectRef = doc(db, 'projects', state.id)
+      const projectRef = doc(db, 'projects', currentProject.id)
 
       await updateDoc(projectRef, {
         unassignedTasks: arrayUnion(newTask),
