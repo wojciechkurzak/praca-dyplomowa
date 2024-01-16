@@ -51,6 +51,7 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
           ...project,
           unassignedTasks: newTasks,
         }
+      else return currentProject
     })
 
     try {

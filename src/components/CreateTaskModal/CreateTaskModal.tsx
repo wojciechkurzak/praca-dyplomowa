@@ -33,6 +33,7 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
           ...project,
           unassignedTasks: [...project.unassignedTasks, newTask],
         }
+      else return project
     })
 
     try {

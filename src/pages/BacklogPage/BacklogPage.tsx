@@ -15,8 +15,6 @@ const BacklogPage = () => {
   const projects = useAppSelector((state) => state.projects.ownProjects)
   const project = projects.find((project) => project.id === state.id)
 
-  console.log(projects)
-
   const handleOpenCreateTaskModal = () => {
     setCreateTaskModal(true)
   }
