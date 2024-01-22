@@ -1,0 +1,57 @@
+.worker-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #151515;
+  padding: 10px 20px;
+  border-radius: 4px;
+  height: 54px;
+
+  span {
+    display: block;
+    color: #fff;
+  }
+
+  .text-right {
+    display: flex;
+    justify-content: space-between;
+    min-width: 320px;
+    max-width: 700px;
+    width: 100%;
+
+    .username {
+      flex-basis: 20%;
+    }
+
+    .email {
+      color: #666;
+      flex-basis: 40%;
+      text-align: center;
+    }
+
+    .role {
+      flex-basis: 40%;
+      text-align: center;
+    }
+  }
+
+  .text-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+
+    .delete {
+      background-color: rgb(219, 0, 0);
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgb(172, 0, 0);
+      }
+    }
+
+    button:disabled {
+      background-color: #222;
+      color: #333;
+    }
+  }
+}

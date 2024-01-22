@@ -28,6 +28,11 @@ const ProjectNavigation = ({ project }: ProjectNavigationProps) => {
           </NavLink>
         </li>
         <li>
+          <NavLink to='/project/users' state={project} replace={true}>
+            Users
+          </NavLink>
+        </li>
+        <li>
           <NavLink to='/project/settings' state={project} replace={true}>
             Settings
           </NavLink>

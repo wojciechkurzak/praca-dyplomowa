@@ -1,0 +1,20 @@
+.project-users {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+      color: #fff;
+    }
+  }
+
+  .users {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

@@ -4,5 +4,5 @@ export type ProjectListProps = {
   projects: Project[]
   title: string
   addProjects?: boolean
-  openModal: () => void
+  openModal?: () => void
 }

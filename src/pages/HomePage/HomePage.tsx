@@ -11,6 +11,16 @@ const HomePage = () => {
   const [createProjectModal, setCreateProjectModal] = useState<boolean>(false)
 
   const projects = useAppSelector((state) => state.projects)
+  const auth = useAppSelector((state) => state.auth)
+
+  console.log(projects)
+
+  const ownProjects = projects.filter((project) =>
+    auth.ownProjects.includes(project.id)
+  )
+  const sharedProjects = projects.filter((project) =>
+    auth.sharedProjects.includes(project.id)
+  )
 
   const handleOpenCreateProjectModal = () => {
     setCreateProjectModal(true)
@@ -24,13 +34,22 @@ const HomePage = () => {
     <main className='home-page'>
       <HomeTopBar title='Dashboard' />
       <section className='content'>
-        {projects.ownProjects.length !== 0 ? (
-          <ProjectList
-            projects={projects.ownProjects}
-            title='My projects'
-            addProjects={true}
-            openModal={handleOpenCreateProjectModal}
-          />
+        {projects.length !== 0 ? (
+          <>
+            <ProjectList
+              projects={ownProjects}
+              title='My projects'
+              addProjects={true}
+              openModal={handleOpenCreateProjectModal}
+            />
+            {sharedProjects.length !== 0 && (
+              <ProjectList
+                projects={sharedProjects}
+                title='Shared projects'
+                addProjects={false}
+              />
+            )}
+          </>
         ) : (
           <NoProjects openModal={handleOpenCreateProjectModal} />
         )}

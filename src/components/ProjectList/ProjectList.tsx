@@ -25,9 +25,13 @@ const ProjectList = ({
         )}
       </div>
       <div className='list'>
-        {projects.map((project) => (
-          <ProjectCard project={project} key={project.id} />
-        ))}
+        {projects.length !== 0 ? (
+          projects.map((project) => (
+            <ProjectCard project={project} key={project.id} />
+          ))
+        ) : (
+          <span className='no-own-projects'>You don't have own projects</span>
+        )}
       </div>
     </div>
   )

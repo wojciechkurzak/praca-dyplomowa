@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, Menu, MenuItem } from '@mui/material'
 import { IoMdSettings } from 'react-icons/io'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { changeOwnProjects } from '../../redux/features/projects-slice/projects-slice'
+import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
 import { Project } from '../../interfaces/Project'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import { arrayRemove, doc, updateDoc } from 'firebase/firestore'
@@ -21,7 +21,7 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
   const open = Boolean(anchorEl)
   const dispatch = useAppDispatch()
 
-  const projects = useAppSelector((state) => state.projects.ownProjects)
+  const projects = useAppSelector((state) => state.projects)
   const { currentProject } = useOutletContext<ProjectOutlet>()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,7 +65,7 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
         ),
       })
 
-      dispatch(changeOwnProjects(newProjects as Project[]))
+      dispatch(changeProjects(newProjects as Project[]))
       handleCloseDeleteModal()
       handleClose()
     } catch (error) {

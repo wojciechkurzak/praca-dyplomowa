@@ -14,10 +14,7 @@ import {
   query,
   where,
 } from 'firebase/firestore'
-import {
-  changeOwnProjects,
-  clearProjects,
-} from './redux/features/projects-slice/projects-slice'
+import { changeProjects } from './redux/features/projects-slice/projects-slice'
 
 import './App.scss'
 import 'react-toastify/dist/ReactToastify.css'
@@ -44,22 +41,27 @@ const App = () => {
           })
         )
         const projectsRef = collection(db, 'projects')
-        const q = query(
-          projectsRef,
-          where('__name__', 'in', projects!.ownProjects)
-        )
-        const querySnapshot = await getDocs(q)
-        let projectsResponse: Project[] = []
-        querySnapshot.forEach((doc) => {
-          projectsResponse = [
-            ...projectsResponse,
-            {
-              ...(doc.data() as Project),
-              id: doc.id,
-            },
-          ]
-        })
-        dispatch(changeOwnProjects(projectsResponse))
+        const projectsID = [
+          ...projects!.ownProjects,
+          ...projects!.sharedProjects,
+        ]
+        if (projectsID.length === 0) {
+          dispatch(changeProjects([]))
+        } else {
+          const q = query(projectsRef, where('__name__', 'in', projectsID))
+          const querySnapshot = await getDocs(q)
+          let projectsResponse: Project[] = []
+          querySnapshot.forEach((doc) => {
+            projectsResponse = [
+              ...projectsResponse,
+              {
+                ...(doc.data() as Project),
+                id: doc.id,
+              },
+            ]
+          })
+          dispatch(changeProjects(projectsResponse))
+        }
       } else {
         dispatch(
           changeAuthState({
@@ -71,7 +73,7 @@ const App = () => {
             sharedProjects: [],
           })
         )
-        dispatch(clearProjects())
+        dispatch(changeProjects([]))
       }
       setPending(false)
     })

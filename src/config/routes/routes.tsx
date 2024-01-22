@@ -5,6 +5,7 @@ import ErrorPage from '../../pages/ErrorPage/ErrorPage'
 import HomePage from '../../pages/HomePage/HomePage'
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import ProjectPage from '../../pages/ProjectPage/ProjectPage'
+import ProjectUsers from '../../pages/ProjectUsers/ProjectUsers'
 import RegisterPage from '../../pages/RegisterPage/RegisterPage'
 
 export const routesConfig = [
@@ -48,6 +49,10 @@ export const routesConfig = [
           {
             path: 'settings',
             element: <ProtectedRoute component={<div>settings</div>} />,
+          },
+          {
+            path: 'users',
+            element: <ProtectedRoute component={<ProjectUsers />} />,
           },
         ],
       },

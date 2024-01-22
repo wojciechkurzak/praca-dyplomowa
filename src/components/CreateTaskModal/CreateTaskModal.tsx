@@ -4,7 +4,7 @@ import { CreateTaskModalProps } from './CreateTaskModalTypes'
 import { v4 as uuid } from 'uuid'
 import { useOutletContext } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { changeOwnProjects } from '../../redux/features/projects-slice/projects-slice'
+import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
 import { Project } from '../../interfaces/Project'
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
@@ -18,7 +18,7 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
   const [title, setTitle] = useState<string>('')
 
   const { currentProject } = useOutletContext<ProjectOutlet>()
-  const projects = useAppSelector((state) => state.projects.ownProjects)
+  const projects = useAppSelector((state) => state.projects)
   const dispatch = useAppDispatch()
 
   const handleCreateTask = async () => {
@@ -44,7 +44,7 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
         unassignedTasks: arrayUnion(newTask),
       })
 
-      dispatch(changeOwnProjects(newProjects as Project[]))
+      dispatch(changeProjects(newProjects as Project[]))
       setTitle('')
       closeModal()
     } catch (error) {
