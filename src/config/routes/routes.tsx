@@ -7,6 +7,7 @@ import LoginPage from '../../pages/LoginPage/LoginPage'
 import ProjectPage from '../../pages/ProjectPage/ProjectPage'
 import ProjectUsers from '../../pages/ProjectUsers/ProjectUsers'
 import RegisterPage from '../../pages/RegisterPage/RegisterPage'
+import SettingsPage from '../../pages/SettingsPage/SettingsPage'
 
 export const routesConfig = [
   {
@@ -48,7 +49,7 @@ export const routesConfig = [
           },
           {
             path: 'settings',
-            element: <ProtectedRoute component={<div>settings</div>} />,
+            element: <ProtectedRoute component={<SettingsPage />} />,
           },
           {
             path: 'users',

@@ -1,0 +1,52 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h2,
+  h3 {
+    color: #fff;
+  }
+
+  .settings {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .project-name {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      .input {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .MuiFormControl-root {
+          width: 240px;
+        }
+
+        button {
+          height: 36px;
+        }
+      }
+    }
+
+    .project-delete {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      .delete {
+        background-color: rgb(219, 0, 0);
+        transition: background-color 0.2s;
+        width: 100px;
+
+        &:hover {
+          background-color: rgb(172, 0, 0);
+        }
+      }
+    }
+  }
+}

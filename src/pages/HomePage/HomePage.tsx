@@ -13,8 +13,6 @@ const HomePage = () => {
   const projects = useAppSelector((state) => state.projects)
   const auth = useAppSelector((state) => state.auth)
 
-  console.log(projects)
-
   const ownProjects = projects.filter((project) =>
     auth.ownProjects.includes(project.id)
   )
