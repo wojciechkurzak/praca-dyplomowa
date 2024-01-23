@@ -31,7 +31,7 @@ const SettingsPage = () => {
   }
 
   const handleChangeProjectName = async () => {
-    if (projectName === currentProject.title) return
+    if (projectName === currentProject.title || !projectName) return
 
     const projectRef = doc(db, 'projects', currentProject.id)
 
