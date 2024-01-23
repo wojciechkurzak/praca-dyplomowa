@@ -6,6 +6,7 @@ import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../ProjectPage/ProjectPageTypes'
 
 import './BacklogPage.scss'
+import DatePickerValue from '../../components/DatePicker/DatePicker'
 
 const BacklogPage = () => {
   const [createTaskModal, setCreateTaskModal] = useState<boolean>(false)
@@ -23,15 +24,24 @@ const BacklogPage = () => {
   return (
     <section className='backlog-page'>
       <div className='backlog-sprint'>
-        <h2>Active sprint:</h2>
+        <div className='title'>
+          <h2>Active sprint:</h2>
+          <Button
+            variant='contained'
+            className='no-projects-button'
+            onClick={handleOpenCreateTaskModal}
+          >
+            Start sprint
+          </Button>
+        </div>
         <div className='sprint'>
-          {currentProject.sprint ? (
-            <div></div>
-          ) : (
-            <div className='no-sprint'>
-              <span>No active sprint</span>
-            </div>
-          )}
+          <div className='text-upper'>
+            <h3>{currentProject.sprint.title}</h3>
+            <DatePickerValue />
+          </div>
+          <div className='tasks'>
+            <span>No tasks</span>
+          </div>
         </div>
       </div>
       <div className='backlog-tasks'>

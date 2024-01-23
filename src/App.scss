@@ -6,6 +6,40 @@
 }
 
 body {
+  .Mui-selected {
+    background-color: #ff6745 !important;
+  }
+
+  .MuiPickersYear-yearButton {
+    color: #fff;
+  }
+
+  .MuiButtonBase-root {
+    svg {
+      color: #fff;
+    }
+  }
+
+  .MuiPickersCalendarHeader-label {
+    color: #fff;
+  }
+
+  .MuiPickersArrowSwitcher-root {
+    button {
+      svg {
+        color: #fff;
+      }
+    }
+  }
+
+  .MuiTypography-root {
+    color: #bbb;
+  }
+
+  .MuiPickersDay-root {
+    color: #fff;
+  }
+
   .MuiInputLabel-root {
     font-size: 16px;
     color: #fff !important;
@@ -89,6 +123,12 @@ body {
         justify-content: center;
         width: 100%;
       }
+    }
+  }
+
+  .calendar {
+    .MuiPaper-root {
+      padding: 0;
     }
   }
 }

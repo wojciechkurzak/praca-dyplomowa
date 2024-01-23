@@ -49,9 +49,12 @@
       }
     }
 
-    button:disabled {
+    .disabled:disabled {
       background-color: #222;
-      color: #333;
+
+      svg {
+        color: #333;
+      }
     }
   }
 }

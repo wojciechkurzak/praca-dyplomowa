@@ -53,7 +53,13 @@ const CreateProjectModal = ({
         },
       ],
       unassignedTasks: [],
-      sprint: null,
+      sprint: {
+        status: 'create',
+        title: 'Sprint 1',
+        startAt: null,
+        endAt: null,
+        tasks: [],
+      },
     }
 
     batch.set(projectRef, newProject)
