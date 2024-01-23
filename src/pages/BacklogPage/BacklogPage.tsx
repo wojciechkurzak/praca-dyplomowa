@@ -22,10 +22,21 @@ const BacklogPage = () => {
 
   return (
     <section className='backlog-page'>
-      <h2>Active sprint:</h2>
+      <div className='backlog-sprint'>
+        <h2>Active sprint:</h2>
+        <div className='sprint'>
+          {currentProject.sprint ? (
+            <div></div>
+          ) : (
+            <div className='no-sprint'>
+              <span>No active sprint</span>
+            </div>
+          )}
+        </div>
+      </div>
       <div className='backlog-tasks'>
         <div className='title'>
-          <h2>Backlog:</h2>
+          <h2>Tasks:</h2>
           <Button
             variant='contained'
             className='no-projects-button'
@@ -35,9 +46,15 @@ const BacklogPage = () => {
           </Button>
         </div>
         <div className='tasks'>
-          {currentProject.unassignedTasks.map((task, index) => (
-            <BacklogTask task={task} key={index} />
-          ))}
+          {currentProject.unassignedTasks.length !== 0 ? (
+            currentProject.unassignedTasks.map((task, index) => (
+              <BacklogTask task={task} key={index} />
+            ))
+          ) : (
+            <div className='no-tasks'>
+              <span>No tasks</span>
+            </div>
+          )}
         </div>
       </div>
       <CreateTaskModal

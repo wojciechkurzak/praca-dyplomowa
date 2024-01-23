@@ -1,17 +1,43 @@
 .backlog-page {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
   h2 {
     color: #fff;
+  }
+
+  .backlog-sprint {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .sprint {
+      background-color: #111;
+      border-radius: 4px;
+      padding: 10px;
+      .no-sprint {
+        text-align: center;
+        padding: 24px 0;
+
+        span {
+          font-size: 18px;
+          color: #858585;
+        }
+      }
+    }
   }
 
   .backlog-tasks {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 100%;
 
     .title {
       display: flex;
       justify-content: space-between;
+      border-bottom: 2px solid #858585;
+      padding-bottom: 10px;
 
       button {
         height: 30px;
@@ -24,6 +50,16 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+
+      .no-tasks {
+        text-align: center;
+        padding: 30px 0;
+
+        span {
+          font-size: 18px;
+          color: #858585;
+        }
+      }
     }
   }
 }
