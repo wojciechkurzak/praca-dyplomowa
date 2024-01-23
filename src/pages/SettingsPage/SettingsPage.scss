@@ -16,7 +16,11 @@
     .project-name {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
+      background-color: #151515;
+      border-radius: 8px;
+      padding: 16px;
+      align-self: flex-start;
 
       .input {
         display: flex;
@@ -36,7 +40,12 @@
     .project-delete {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      align-items: center;
+      gap: 16px;
+      background-color: #151515;
+      border-radius: 8px;
+      padding: 16px;
+      align-self: flex-start;
 
       .delete {
         background-color: rgb(219, 0, 0);
