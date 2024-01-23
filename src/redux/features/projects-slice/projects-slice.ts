@@ -12,7 +12,7 @@ const projectsSlice = createSlice({
       return [...action.payload]
     },
     addProject(state, action: PayloadAction<Project>) {
-      state = [...state, action.payload]
+      return [...state, action.payload]
     },
   },
 })

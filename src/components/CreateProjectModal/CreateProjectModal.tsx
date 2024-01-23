@@ -12,6 +12,8 @@ import { v4 as uuid } from 'uuid'
 import { changeOwnProjects } from '../../redux/features/auth-slice/auth-slice'
 
 import './CreateProjectModal.scss'
+import { addProject } from '../../redux/features/projects-slice/projects-slice'
+import { Project } from '../../interfaces/Project'
 
 const CreateProjectModal = ({
   isOpen,
@@ -37,6 +39,7 @@ const CreateProjectModal = ({
     const userRef = doc(db, 'users', user.email!)
 
     const newProject = {
+      id: projectID,
       leader: user.email,
       title: title,
       description: description,
@@ -45,6 +48,8 @@ const CreateProjectModal = ({
         {
           email: user.email,
           role: 'Leader',
+          username: user.username,
+          imageUrl: user.imageUrl,
         },
       ],
       unassignedTasks: [],
@@ -59,6 +64,7 @@ const CreateProjectModal = ({
     try {
       await batch.commit()
       dispatch(changeOwnProjects([...user.ownProjects, projectID]))
+      dispatch(addProject(newProject as Project))
       toast.success('Project created', toastOptions)
     } catch (error) {
       toast.error("Couldn't create project", toastOptions)
