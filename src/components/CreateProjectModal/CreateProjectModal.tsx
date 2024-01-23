@@ -48,8 +48,6 @@ const CreateProjectModal = ({
         {
           email: user.email,
           role: 'Leader',
-          username: user.username,
-          imageUrl: user.imageUrl,
         },
       ],
       unassignedTasks: [],

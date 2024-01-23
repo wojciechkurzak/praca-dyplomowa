@@ -5,7 +5,7 @@ import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { AddUserModalProps } from './AddWorkerModalTypes'
 import { db } from '../../config/firebase/firebase'
-import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { arrayUnion, doc, getDoc, writeBatch } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
@@ -48,14 +48,19 @@ const AddWorkerModal = ({ isOpen, closeModal }: AddUserModalProps) => {
           } else return project
         })
 
-        await updateDoc(projectRef, {
-          workers: arrayUnion(newWorker),
-        })
+        const batch = writeBatch(db)
 
-        await updateDoc(workerRef, {
+        batch.update(projectRef, {
+          workers: arrayUnion({
+            email: worker.email,
+            role: 'Worker',
+          }),
+        })
+        batch.update(workerRef, {
           sharedProjects: arrayUnion(currentProject.id),
         })
 
+        await batch.commit()
         dispatch(changeProjects(newProjects))
         setEmail('')
         closeModal()

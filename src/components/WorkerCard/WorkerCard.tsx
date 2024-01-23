@@ -5,7 +5,7 @@ import { useState } from 'react'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
-import { arrayRemove, doc, updateDoc } from 'firebase/firestore'
+import { arrayRemove, doc, writeBatch } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
@@ -45,30 +45,26 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
       else return project
     })
 
+    const batch = writeBatch(db)
+    const projectRef = doc(db, 'projects', currentProject.id)
+    const workerRef = doc(db, 'users', worker.email)
+
+    const workerToDelete = currentProject.workers.find(
+      (currentWorker) => currentWorker.email === worker.email
+    )
+
+    batch.update(projectRef, {
+      workers: arrayRemove({
+        email: workerToDelete!.email,
+        role: 'Worker',
+      }),
+    })
+    batch.update(workerRef, {
+      sharedProjects: arrayRemove(currentProject.id),
+    })
+
     try {
-      const projectRef = doc(db, 'projects', currentProject.id)
-      const workerRef = doc(db, 'users', worker.email)
-
-      await updateDoc(projectRef, {
-        workers: arrayRemove(
-          currentProject.workers.find(
-            (currentWorker) => currentWorker.email === worker.email
-          )
-        ),
-      })
-
-      await updateDoc(projectRef, {
-        workers: arrayRemove(
-          currentProject.workers.find(
-            (currentWorker) => currentWorker.email === worker.email
-          )
-        ),
-      })
-
-      await updateDoc(workerRef, {
-        sharedProjects: arrayRemove(currentProject.id),
-      })
-
+      await batch.commit()
       dispatch(changeProjects(newProjects as Project[]))
       handleCloseDeleteModal()
     } catch (error) {
