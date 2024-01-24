@@ -10,12 +10,12 @@ export interface Task {
   title: string
   status: string
   assignment: string | null
+  isSprint: boolean
 }
 
 export interface Sprint {
-  status: 'create' | 'running'
+  isRunning: boolean
   title: string
-  tasks: Task[]
   startAt: string | null
   endAt: string | null
 }
@@ -27,6 +27,6 @@ export interface Project {
   description: string
   leader: string
   workers: Worker[]
-  unassignedTasks: Task[]
+  tasks: Task[]
   sprint: Sprint
 }

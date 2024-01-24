@@ -13,6 +13,9 @@ const BacklogPage = () => {
 
   const { currentProject } = useOutletContext<ProjectOutlet>()
 
+  const sprintTasks = currentProject.tasks.filter((task) => task.isSprint)
+  const unassignedTasks = currentProject.tasks.filter((task) => !task.isSprint)
+
   const handleOpenCreateTaskModal = () => {
     setCreateTaskModal(true)
   }
@@ -40,7 +43,15 @@ const BacklogPage = () => {
             <DatePickerValue />
           </div>
           <div className='tasks'>
-            <span>No tasks</span>
+            {sprintTasks.length !== 0 ? (
+              sprintTasks.map((task, index) => (
+                <BacklogTask task={task} key={index} />
+              ))
+            ) : (
+              <div className='no-tasks'>
+                <span>No tasks</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -56,8 +67,8 @@ const BacklogPage = () => {
           </Button>
         </div>
         <div className='tasks'>
-          {currentProject.unassignedTasks.length !== 0 ? (
-            currentProject.unassignedTasks.map((task, index) => (
+          {unassignedTasks.length !== 0 ? (
+            unassignedTasks.map((task, index) => (
               <BacklogTask task={task} key={index} />
             ))
           ) : (

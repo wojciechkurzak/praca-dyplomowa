@@ -3,7 +3,6 @@ import { Button, Menu, MenuItem } from '@mui/material'
 import { IoMdSettings } from 'react-icons/io'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
-import { Project } from '../../interfaces/Project'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import { arrayRemove, doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
@@ -41,15 +40,15 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
   }
 
   const handleDeleteTask = async () => {
-    const newTasks = currentProject.unassignedTasks.filter(
+    const newTasks = currentProject.tasks.filter(
       (currentTask) => currentTask.id !== task.id
     )
 
     const newProjects = projects.map((project) => {
       if (currentProject.id === project.id)
         return {
-          ...project,
-          unassignedTasks: newTasks,
+          ...currentProject,
+          tasks: newTasks,
         }
       else return project
     })
@@ -58,15 +57,44 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
       const projectRef = doc(db, 'projects', currentProject.id)
 
       await updateDoc(projectRef, {
-        unassignedTasks: arrayRemove(
-          currentProject.unassignedTasks.find(
-            (currentTask) => currentTask.id === task.id
-          )
-        ),
+        tasks: arrayRemove(task),
       })
 
-      dispatch(changeProjects(newProjects as Project[]))
+      dispatch(changeProjects(newProjects))
       handleCloseDeleteModal()
+      handleClose()
+    } catch (error) {
+      toast.error('Something went wrong', toastOptions)
+    }
+  }
+
+  const handleMoveTo = async (moveToSprint: boolean) => {
+    const newTasks = currentProject.tasks.map((currentTask) => {
+      if (currentTask.id === task.id) {
+        return {
+          ...task,
+          isSprint: moveToSprint,
+        }
+      } else return currentTask
+    })
+
+    const newProjects = projects.map((project) => {
+      if (project.id === currentProject.id) {
+        return {
+          ...currentProject,
+          tasks: newTasks,
+        }
+      } else return project
+    })
+
+    try {
+      const projectRef = doc(db, 'projects', currentProject.id)
+
+      await updateDoc(projectRef, {
+        tasks: newTasks,
+      })
+
+      dispatch(changeProjects(newProjects))
       handleClose()
     } catch (error) {
       toast.error('Something went wrong', toastOptions)
@@ -93,6 +121,14 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
             open={open}
             onClose={handleClose}
           >
+            {task.isSprint ? (
+              <MenuItem onClick={() => handleMoveTo(false)}>Remove</MenuItem>
+            ) : (
+              <MenuItem onClick={() => handleMoveTo(true)}>
+                Move to sprint
+              </MenuItem>
+            )}
+
             <MenuItem>Edit</MenuItem>
             <MenuItem onClick={handleOpenDeleteModal}>Delete</MenuItem>
           </Menu>

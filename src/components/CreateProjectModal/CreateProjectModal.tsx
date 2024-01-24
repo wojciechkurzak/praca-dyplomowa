@@ -10,10 +10,10 @@ import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { v4 as uuid } from 'uuid'
 import { changeOwnProjects } from '../../redux/features/auth-slice/auth-slice'
-
-import './CreateProjectModal.scss'
 import { addProject } from '../../redux/features/projects-slice/projects-slice'
 import { Project } from '../../interfaces/Project'
+
+import './CreateProjectModal.scss'
 
 const CreateProjectModal = ({
   isOpen,
@@ -50,13 +50,12 @@ const CreateProjectModal = ({
           role: 'Leader',
         },
       ],
-      unassignedTasks: [],
+      tasks: [],
       sprint: {
-        status: 'create',
+        isRunning: false,
         title: 'Sprint 1',
         startAt: null,
         endAt: null,
-        tasks: [],
       },
     }
 

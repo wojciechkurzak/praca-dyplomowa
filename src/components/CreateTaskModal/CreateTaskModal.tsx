@@ -27,12 +27,14 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
       title: title,
       status: 'todo',
       assignment: null,
+      isSprint: false,
     }
+
     const newProjects = projects.map((project) => {
       if (project.id === currentProject.id)
         return {
-          ...project,
-          unassignedTasks: [...project.unassignedTasks, newTask],
+          ...currentProject,
+          tasks: [...currentProject.tasks, newTask],
         }
       else return project
     })
@@ -41,7 +43,7 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
       const projectRef = doc(db, 'projects', currentProject.id)
 
       await updateDoc(projectRef, {
-        unassignedTasks: arrayUnion(newTask),
+        tasks: arrayUnion(newTask),
       })
 
       dispatch(changeProjects(newProjects as Project[]))
