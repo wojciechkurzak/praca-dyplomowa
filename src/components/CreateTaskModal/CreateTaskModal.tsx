@@ -25,8 +25,8 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
     const newTask = {
       id: uuid(),
       title: title,
-      status: 'todo',
-      assignment: null,
+      status: 'to do',
+      assignment: 'not assigned',
       isSprint: false,
     }
 

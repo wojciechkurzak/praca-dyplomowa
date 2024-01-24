@@ -13,9 +13,11 @@ import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
 
 import './BacklogTask.scss'
+import EditTaskModal from '../EditTaskModal/EditTaskModal'
 
 const BacklogTask = ({ task }: BacklogTaskProps) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [editModal, setEditModal] = useState<boolean>(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const dispatch = useAppDispatch()
@@ -37,6 +39,14 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
 
   const handleCloseDeleteModal = () => {
     setDeleteModal(false)
+  }
+
+  const handleOpenEditModal = () => {
+    setEditModal(true)
+  }
+
+  const handleCloseEditModal = () => {
+    setEditModal(false)
   }
 
   const handleDeleteTask = async () => {
@@ -129,11 +139,16 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
               </MenuItem>
             )}
 
-            <MenuItem>Edit</MenuItem>
+            <MenuItem onClick={handleOpenEditModal}>Edit</MenuItem>
             <MenuItem onClick={handleOpenDeleteModal}>Delete</MenuItem>
           </Menu>
         </div>
       </div>
+      <EditTaskModal
+        isOpen={editModal}
+        closeModal={handleCloseEditModal}
+        task={task}
+      />
       <DeleteModal
         isOpen={deleteModal}
         closeModal={handleCloseDeleteModal}

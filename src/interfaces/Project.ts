@@ -9,7 +9,7 @@ export interface Task {
   id: string
   title: string
   status: string
-  assignment: string | null
+  assignment: string
   isSprint: boolean
 }
 
