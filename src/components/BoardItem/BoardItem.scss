@@ -1,0 +1,21 @@
+.board-item {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #191919;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+
+  .title {
+    color: #fff;
+  }
+
+  .assignment {
+    color: #999999;
+  }
+}
+
+.item-overlay {
+  opacity: 0;
+}

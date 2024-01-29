@@ -8,8 +8,8 @@ const ProjectNavigation = ({ project }: ProjectNavigationProps) => {
     <nav className='project-navigation'>
       <ul>
         <li>
-          <NavLink to='/project/sprint' state={project} replace={true}>
-            Sprint preview
+          <NavLink to='/project/board' state={project} replace={true}>
+            Scrum board
           </NavLink>
         </li>
         <li>

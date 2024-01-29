@@ -7,6 +7,7 @@ import LoginPage from '../../pages/LoginPage/LoginPage'
 import ProjectPage from '../../pages/ProjectPage/ProjectPage'
 import ProjectUsers from '../../pages/ProjectUsers/ProjectUsers'
 import RegisterPage from '../../pages/RegisterPage/RegisterPage'
+import ScrumBoardPage from '../../pages/ScrumBoardPage/ScrumBoardPage'
 import SettingsPage from '../../pages/SettingsPage/SettingsPage'
 
 export const routesConfig = [
@@ -32,8 +33,8 @@ export const routesConfig = [
         element: <ProtectedRoute component={<ProjectPage />} />,
         children: [
           {
-            path: 'sprint',
-            element: <ProtectedRoute component={<div>sprint</div>} />,
+            path: 'board',
+            element: <ProtectedRoute component={<ScrumBoardPage />} />,
           },
           {
             path: 'backlog',
