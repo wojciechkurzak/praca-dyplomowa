@@ -1,0 +1,17 @@
+.history-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .title {
+    h2 {
+      color: #fff;
+    }
+  }
+
+  .sprints {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

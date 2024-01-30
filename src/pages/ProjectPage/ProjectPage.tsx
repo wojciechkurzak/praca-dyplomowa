@@ -1,4 +1,9 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {
+  Outlet,
+  ScrollRestoration,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import HomeTopBar from '../../components/HomeTopBar/HomeTopBar'
 import ProjectNavigation from '../../components/ProjectNavigation/ProjectNavigation'
@@ -62,6 +67,7 @@ const ProjectPage = () => {
         <ProjectNavigation project={project} />
         <main>
           <Outlet context={{ currentProject: project }} />
+          <ScrollRestoration />
         </main>
       </div>
     </div>

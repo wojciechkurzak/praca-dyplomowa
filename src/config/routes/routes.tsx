@@ -2,6 +2,7 @@ import App from '../../App'
 import ProtectedRoute from '../../components/ProtectedRoute/ProtectedRoute'
 import BacklogPage from '../../pages/BacklogPage/BacklogPage'
 import ErrorPage from '../../pages/ErrorPage/ErrorPage'
+import HistoryPage from '../../pages/HistoryPage/HistoryPage'
 import HomePage from '../../pages/HomePage/HomePage'
 import LoginPage from '../../pages/LoginPage/LoginPage'
 import ProjectPage from '../../pages/ProjectPage/ProjectPage'
@@ -42,7 +43,7 @@ export const routesConfig = [
           },
           {
             path: 'history',
-            element: <ProtectedRoute component={<div>history</div>} />,
+            element: <ProtectedRoute component={<HistoryPage />} />,
           },
           {
             path: 'chat',

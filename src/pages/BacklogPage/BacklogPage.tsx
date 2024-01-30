@@ -75,7 +75,6 @@ const BacklogPage = () => {
       })
 
     const newHistory = [
-      ...currentProject.history,
       {
         title: currentProject.sprint.title,
         startAt: currentProject.sprint.startAt,
@@ -84,6 +83,7 @@ const BacklogPage = () => {
           (task) => task.isSprint && task.status === 'done'
         ),
       },
+      ...currentProject.history,
     ]
 
     const newSprint = {
