@@ -1,17 +1,20 @@
-import dayjs, { Dayjs } from 'dayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateCalendar } from '@mui/x-date-pickers'
 import { Button, Menu } from '@mui/material'
 import { useState } from 'react'
 import { FaRegCalendarAlt } from 'react-icons/fa'
+import { DatePickerProps } from './DatePickerTypes'
+import { useOutletContext } from 'react-router-dom'
+import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
 
 import './DatePicker.scss'
 
-const DatePickerValue = () => {
-  const [value, setValue] = useState<Dayjs | null>(dayjs().add(7, 'day'))
+const DatePicker = ({ date, setDate }: DatePickerProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+
+  const { currentProject } = useOutletContext<ProjectOutlet>()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -24,14 +27,20 @@ const DatePickerValue = () => {
   return (
     <div className='date-picker'>
       <div className='text'>
-        <span>{`Today - ${value ? value!.format('DD-MM-YYYY') : null}`}</span>
-        <Button
-          variant='contained'
-          className='no-projects-button'
-          onClick={handleClick}
-        >
-          <FaRegCalendarAlt />
-        </Button>
+        {currentProject.sprint.isRunning ? (
+          <span>{`${currentProject.sprint.startAt} - ${currentProject.sprint.endAt}`}</span>
+        ) : (
+          <>
+            <span>{`Today - ${date.format('DD/MM/YYYY')}`}</span>
+            <Button
+              variant='contained'
+              className='no-projects-button'
+              onClick={handleClick}
+            >
+              <FaRegCalendarAlt />
+            </Button>
+          </>
+        )}
       </div>
       <Menu
         anchorEl={anchorEl}
@@ -41,8 +50,8 @@ const DatePickerValue = () => {
       >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar
-            value={value}
-            onChange={(newValue) => setValue(newValue)}
+            value={date}
+            onChange={(newValue) => setDate(newValue)}
           />
         </LocalizationProvider>
       </Menu>
@@ -50,4 +59,4 @@ const DatePickerValue = () => {
   )
 }
 
-export default DatePickerValue
+export default DatePicker

@@ -57,6 +57,7 @@ const CreateProjectModal = ({
         startAt: null,
         endAt: null,
       },
+      history: [],
     }
 
     batch.set(projectRef, newProject)

@@ -19,6 +19,10 @@ import BoardColumn from '../BoardColumn/BoardColumn'
 import BoardItem from '../BoardItem/BoardItem'
 import { Column } from './ScrumBoardTypes'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
+import { toast } from 'react-toastify'
+import { toastOptions } from '../../config/toasts/toastOptions'
+import { doc, updateDoc } from 'firebase/firestore'
+import { db } from '../../config/firebase/firebase'
 
 import './ScrumBoard.scss'
 
@@ -77,7 +81,19 @@ const ScrumBoard = () => {
         JSON.stringify(project.tasks) === JSON.stringify(newProject.tasks)
     )
 
-    if (!isEqual) dispatch(changeProjects(newProjects as Project[]))
+    if (!isEqual) {
+      try {
+        const projectRef = doc(db, 'projects', currentProject.id)
+
+        await updateDoc(projectRef, {
+          tasks: tasks,
+        })
+
+        dispatch(changeProjects(newProjects as Project[]))
+      } catch (error) {
+        toast.error('Something went wrong', toastOptions)
+      }
+    }
     setActiveTask(null)
   }
 

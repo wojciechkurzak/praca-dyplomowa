@@ -22,12 +22,14 @@ const BoardColumn = ({ column, tasks }: BoardColumnProps) => {
     },
   })
 
+  const sprintTasks = tasks.filter((task) => task.isSprint)
+
   return (
     <div ref={setNodeRef} className='board-column'>
       <h3>{column.title}</h3>
       <div className='board-task-container'>
         <SortableContext items={tasksIds} strategy={rectSortingStrategy}>
-          {tasks.map((task) => (
+          {sprintTasks.map((task) => (
             <BoardItem key={task.id} task={task} />
           ))}
         </SortableContext>

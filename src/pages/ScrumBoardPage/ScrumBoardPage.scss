@@ -6,4 +6,18 @@
   h2 {
     color: #fff;
   }
+
+  .no-sprint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 110px);
+    flex-direction: column;
+    gap: 20px;
+
+    span {
+      color: #fff;
+      font-size: 30px;
+    }
+  }
 }

@@ -20,6 +20,13 @@ export interface Sprint {
   endAt: string | null
 }
 
+export interface History {
+  title: string
+  startAt: string | null
+  endAt: string | null
+  tasks: Task[]
+}
+
 export interface Project {
   id: string
   createdAt: string
@@ -29,4 +36,5 @@ export interface Project {
   workers: Worker[]
   tasks: Task[]
   sprint: Sprint
+  history: History[]
 }
