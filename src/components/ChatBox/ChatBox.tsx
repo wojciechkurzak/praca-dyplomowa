@@ -1,7 +1,7 @@
 import { Fab } from '@mui/material'
 import { IoChatboxEllipses } from 'react-icons/io5'
 import { IoSend } from 'react-icons/io5'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Message } from '../../interfaces/Message'
 import { useAppSelector } from '../../redux/hooks'
 import {
@@ -22,7 +22,8 @@ import './ChatBox.scss'
 const ChatBox = ({ project }: ChatBoxProps) => {
   const [value, setValue] = useState<string>('')
   const [messages, setMessages] = useState<Message[]>([])
-  const [visible, setVisible] = useState<boolean>(true)
+  const [visible, setVisible] = useState<boolean>(false)
+  const bottomOfMessages = useRef<HTMLDivElement>(null)
 
   const auth = useAppSelector((state) => state.auth)
 
@@ -60,6 +61,12 @@ const ChatBox = ({ project }: ChatBoxProps) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (bottomOfMessages.current) {
+      bottomOfMessages.current.scrollIntoView()
+    }
+  }, [messages])
+
   return (
     <>
       <div className={visible ? 'chat-box chat-open' : 'chat-box'}>
@@ -78,6 +85,7 @@ const ChatBox = ({ project }: ChatBoxProps) => {
               <p className='content'>{message.content}</p>
             </div>
           ))}
+          <div ref={bottomOfMessages}></div>
         </div>
         <div className='input'>
           <input
