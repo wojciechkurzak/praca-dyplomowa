@@ -1,9 +1,4 @@
-import {
-  Outlet,
-  ScrollRestoration,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import HomeTopBar from '../../components/HomeTopBar/HomeTopBar'
 import ProjectNavigation from '../../components/ProjectNavigation/ProjectNavigation'
@@ -12,6 +7,7 @@ import { useAppSelector } from '../../redux/hooks'
 import Loading from '../../components/Loading/Loading'
 import { db } from '../../config/firebase/firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
+import ChatBox from '../../components/ChatBox/ChatBox'
 
 import './ProjectPage.scss'
 
@@ -67,9 +63,9 @@ const ProjectPage = () => {
         <ProjectNavigation project={project} />
         <main>
           <Outlet context={{ currentProject: project }} />
-          <ScrollRestoration />
         </main>
       </div>
+      <ChatBox project={project} />
     </div>
   ) : (
     <Loading />

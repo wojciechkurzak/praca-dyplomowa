@@ -15,10 +15,10 @@ import {
   where,
 } from 'firebase/firestore'
 import { changeProjects } from './redux/features/projects-slice/projects-slice'
+import { Project } from './interfaces/Project'
 
 import './App.scss'
 import 'react-toastify/dist/ReactToastify.css'
-import { Project } from './interfaces/Project'
 
 const App = () => {
   const [pending, setPending] = useState(true)

@@ -151,3 +151,13 @@ body {
     }
   }
 }
+
+.chat-button {
+  .MuiButtonBase-root {
+    background-color: #ff6745 !important;
+
+    &:hover {
+      background-color: #d15539 !important;
+    }
+  }
+}

@@ -46,10 +46,6 @@ export const routesConfig = [
             element: <ProtectedRoute component={<HistoryPage />} />,
           },
           {
-            path: 'chat',
-            element: <ProtectedRoute component={<div>chat</div>} />,
-          },
-          {
             path: 'settings',
             element: <ProtectedRoute component={<SettingsPage />} />,
           },

@@ -23,11 +23,6 @@ const ProjectNavigation = ({ project }: ProjectNavigationProps) => {
           </NavLink>
         </li>
         <li>
-          <NavLink to='/project/chat' state={project} replace={true}>
-            Chat
-          </NavLink>
-        </li>
-        <li>
           <NavLink to='/project/users' state={project} replace={true}>
             Users
           </NavLink>
