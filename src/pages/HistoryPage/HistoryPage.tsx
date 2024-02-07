@@ -12,9 +12,13 @@ const HistoryPage = () => {
         <h2>History:</h2>
       </div>
       <div className='sprints'>
-        {currentProject.history.map((sprint, index) => (
-          <HistoryCard sprint={sprint} key={index} />
-        ))}
+        {currentProject.history.length !== 0 ? (
+          currentProject.history.map((sprint, index) => (
+            <HistoryCard sprint={sprint} key={index} />
+          ))
+        ) : (
+          <span className='no-history'>No history</span>
+        )}
       </div>
     </div>
   )
