@@ -1,0 +1,12 @@
+.no-permission {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 110px);
+
+  h2 {
+    color: #858585;
+    font-size: 30px;
+    font-weight: 300;
+  }
+}

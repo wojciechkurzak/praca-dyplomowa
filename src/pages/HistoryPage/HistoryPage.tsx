@@ -17,7 +17,9 @@ const HistoryPage = () => {
             <HistoryCard sprint={sprint} key={index} />
           ))
         ) : (
-          <span className='no-history'>No history</span>
+          <div className='no-history'>
+            <span>No history</span>
+          </div>
         )}
       </div>
     </div>

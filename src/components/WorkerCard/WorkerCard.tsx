@@ -20,6 +20,7 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
 
   const projects = useAppSelector((state) => state.projects)
+  const auth = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
   const { currentProject } = useOutletContext<ProjectOutlet>()
 
@@ -80,7 +81,7 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
         <span className='role'>{worker.role}</span>
       </div>
       <div className='text-left'>
-        {worker.role !== 'Leader' ? (
+        {worker.role !== 'Leader' && currentProject.leader === auth.email ? (
           <Button
             variant='contained'
             className='delete'

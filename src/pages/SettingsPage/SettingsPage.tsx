@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
 
 import './SettingsPage.scss'
+import ViewRestriction from '../../components/ViewRestriction/ViewRestriction'
 
 const SettingsPage = () => {
   const { currentProject } = useOutletContext<ProjectOutlet>()
@@ -85,45 +86,47 @@ const SettingsPage = () => {
   }
 
   return (
-    <div className='settings-page'>
-      <h2>Settings:</h2>
-      <div className='settings'>
-        <div className='project-name'>
-          <h3>Change project name</h3>
-          <div className='input'>
-            <TextField
-              label='Project name'
-              variant='outlined'
-              type='text'
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-            />
+    <ViewRestriction currentProject={currentProject}>
+      <div className='settings-page'>
+        <h2>Settings:</h2>
+        <div className='settings'>
+          <div className='project-name'>
+            <h3>Change project name</h3>
+            <div className='input'>
+              <TextField
+                label='Project name'
+                variant='outlined'
+                type='text'
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+              />
+              <Button
+                variant='contained'
+                className='no-projects-button'
+                onClick={handleChangeProjectName}
+              >
+                Update
+              </Button>
+            </div>
+          </div>
+          <div className='project-delete'>
+            <h3>Delete project</h3>
             <Button
               variant='contained'
-              className='no-projects-button'
-              onClick={handleChangeProjectName}
+              className='delete'
+              onClick={handleOpenDeleteModal}
             >
-              Update
+              Delete
             </Button>
           </div>
         </div>
-        <div className='project-delete'>
-          <h3>Delete project</h3>
-          <Button
-            variant='contained'
-            className='delete'
-            onClick={handleOpenDeleteModal}
-          >
-            Delete
-          </Button>
-        </div>
+        <DeleteModal
+          isOpen={deleteModal}
+          closeModal={handleCloseDeleteModal}
+          onDelete={handleDeleteProject}
+        />
       </div>
-      <DeleteModal
-        isOpen={deleteModal}
-        closeModal={handleCloseDeleteModal}
-        onDelete={handleDeleteProject}
-      />
-    </div>
+    </ViewRestriction>
   )
 }
 

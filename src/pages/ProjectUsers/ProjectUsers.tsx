@@ -8,11 +8,13 @@ import { useState } from 'react'
 import { sortByRole } from '../../utils/SortByRole'
 
 import './ProjectUsers.scss'
+import { useAppSelector } from '../../redux/hooks'
 
 const ProjectUsers = () => {
   const [workerModal, setWorkerModal] = useState<boolean>(false)
 
   const { currentProject } = useOutletContext<ProjectOutlet>()
+  const auth = useAppSelector((state) => state.auth)
 
   const workers = currentProject.workers.sort(sortByRole)
 
@@ -28,13 +30,15 @@ const ProjectUsers = () => {
     <section className='project-users'>
       <div className='title'>
         <h2>Users:</h2>
-        <Button
-          variant='contained'
-          className='no-projects-button'
-          onClick={handleOpenWorkerModal}
-        >
-          <IoMdAdd size={22} />
-        </Button>
+        {currentProject.leader === auth.email && (
+          <Button
+            variant='contained'
+            className='no-projects-button'
+            onClick={handleOpenWorkerModal}
+          >
+            <IoMdAdd size={22} />
+          </Button>
+        )}
       </div>
       <div className='users'>
         {workers.map((worker) => (

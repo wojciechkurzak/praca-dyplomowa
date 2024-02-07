@@ -14,6 +14,7 @@ import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
 
 import './BacklogPage.scss'
+import ViewRestriction from '../../components/ViewRestriction/ViewRestriction'
 
 const BacklogPage = () => {
   const [createTaskModal, setCreateTaskModal] = useState<boolean>(false)
@@ -120,30 +121,57 @@ const BacklogPage = () => {
   }
 
   return (
-    <section className='backlog-page'>
-      <div className='backlog-sprint'>
-        <div className='title'>
-          <h2>Active sprint:</h2>
-          <Button
-            variant='contained'
-            className='no-projects-button'
-            onClick={() =>
-              !currentProject.sprint.isRunning
-                ? handleStartSprint()
-                : handleStopSprint()
-            }
-          >
-            {!currentProject.sprint.isRunning ? 'Start sprint' : 'Stop sprint'}
-          </Button>
+    <ViewRestriction currentProject={currentProject}>
+      <section className='backlog-page'>
+        <div className='backlog-sprint'>
+          <div className='title'>
+            <h2>Active sprint:</h2>
+            <Button
+              variant='contained'
+              className='no-projects-button'
+              onClick={() =>
+                !currentProject.sprint.isRunning
+                  ? handleStartSprint()
+                  : handleStopSprint()
+              }
+            >
+              {!currentProject.sprint.isRunning
+                ? 'Start sprint'
+                : 'Stop sprint'}
+            </Button>
+          </div>
+          <div className='sprint'>
+            <div className='text-upper'>
+              <h3>{currentProject.sprint.title}</h3>
+              <DatePicker date={date} setDate={setDate} />
+            </div>
+            <div className='tasks'>
+              {sprintTasks.length !== 0 ? (
+                sprintTasks.map((task, index) => (
+                  <BacklogTask task={task} key={index} />
+                ))
+              ) : (
+                <div className='no-tasks'>
+                  <span>No tasks</span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        <div className='sprint'>
-          <div className='text-upper'>
-            <h3>{currentProject.sprint.title}</h3>
-            <DatePicker date={date} setDate={setDate} />
+        <div className='backlog-tasks'>
+          <div className='title'>
+            <h2>Tasks:</h2>
+            <Button
+              variant='contained'
+              className='no-projects-button'
+              onClick={handleOpenCreateTaskModal}
+            >
+              Create new task
+            </Button>
           </div>
           <div className='tasks'>
-            {sprintTasks.length !== 0 ? (
-              sprintTasks.map((task, index) => (
+            {unassignedTasks.length !== 0 ? (
+              unassignedTasks.map((task, index) => (
                 <BacklogTask task={task} key={index} />
               ))
             ) : (
@@ -153,35 +181,12 @@ const BacklogPage = () => {
             )}
           </div>
         </div>
-      </div>
-      <div className='backlog-tasks'>
-        <div className='title'>
-          <h2>Tasks:</h2>
-          <Button
-            variant='contained'
-            className='no-projects-button'
-            onClick={handleOpenCreateTaskModal}
-          >
-            Create new task
-          </Button>
-        </div>
-        <div className='tasks'>
-          {unassignedTasks.length !== 0 ? (
-            unassignedTasks.map((task, index) => (
-              <BacklogTask task={task} key={index} />
-            ))
-          ) : (
-            <div className='no-tasks'>
-              <span>No tasks</span>
-            </div>
-          )}
-        </div>
-      </div>
-      <CreateTaskModal
-        isOpen={createTaskModal}
-        closeModal={handleCloseCreateTaskModal}
-      />
-    </section>
+        <CreateTaskModal
+          isOpen={createTaskModal}
+          closeModal={handleCloseCreateTaskModal}
+        />
+      </section>
+    </ViewRestriction>
   )
 }
 
