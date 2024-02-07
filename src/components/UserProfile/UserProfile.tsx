@@ -6,7 +6,6 @@ import { signOut } from 'firebase/auth'
 import { auth } from '../../config/firebase/firebase'
 import { useAppSelector } from '../../redux/hooks'
 import UserName from '../UserName/UserName'
-import UserImage from '../UserImage/UserImage'
 import UserEmail from '../UserEmail/UserEmail'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -45,10 +44,8 @@ const UserProfile = () => {
     <div className='user-profile'>
       <button onClick={handleClick} className={open ? 'open' : ''}>
         <UserName username={user.username} />
-        <UserImage imageUrl={user.imageUrl} />
       </button>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <UserImage imageUrl={user.imageUrl} size={120} />
         <UserName username={user.username} size={24} />
         <UserEmail email={user.email} size={18} color='#666' />
         <MenuItem>

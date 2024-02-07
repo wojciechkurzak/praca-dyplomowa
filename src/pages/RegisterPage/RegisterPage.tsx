@@ -25,8 +25,8 @@ import Loading from '../../components/Loading/Loading'
 import '../LoginPage/AuthPage.scss'
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState<string>('sex@sex.com')
-  const [username, setUsername] = useState<string>('Sexi')
+  const [email, setEmail] = useState<string>('test@test.com')
+  const [username, setUsername] = useState<string>('TestUser')
   const [password, setPassword] = useState<string>('Test123#')
   const [confirmPassword, setConfirmPassword] = useState<string>('Test123#')
   const [errors, setErrors] = useState<RegisterErrors>({
@@ -82,7 +82,6 @@ const RegisterPage = () => {
         setDoc(doc(db, 'users', email), {
           username: username,
           email: email,
-          imageUrl: null,
           ownProjects: [],
           sharedProjects: [],
         })

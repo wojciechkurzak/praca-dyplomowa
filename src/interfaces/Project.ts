@@ -2,7 +2,6 @@ export interface Worker {
   email: string
   role: string
   username?: string
-  imageUrl?: string
 }
 
 export interface Task {

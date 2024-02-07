@@ -16,7 +16,7 @@ import Loading from '../../components/Loading/Loading'
 import './AuthPage.scss'
 
 const LoginPage = () => {
-  const [email, setEmail] = useState<string>('sex@sex.com')
+  const [email, setEmail] = useState<string>('test@test.com')
   const [password, setPassword] = useState<string>('Test123#')
 
   const dispatch = useAppDispatch()
