@@ -37,6 +37,7 @@ const CreateProjectModal = ({
     const batch = writeBatch(db)
     const projectRef = doc(db, 'projects', projectID)
     const userRef = doc(db, 'users', user.email!)
+    const chatsRef = doc(db, 'chats', projectID)
 
     const newProject = {
       id: projectID,
@@ -60,7 +61,12 @@ const CreateProjectModal = ({
       history: [],
     }
 
+    const newChat = {
+      messages: [],
+    }
+
     batch.set(projectRef, newProject)
+    batch.set(chatsRef, newChat)
     batch.update(userRef, {
       ownProjects: [...user.ownProjects, projectID],
     })
