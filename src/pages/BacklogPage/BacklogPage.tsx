@@ -12,9 +12,9 @@ import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { doc, updateDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
+import ViewRestriction from '../../components/ViewRestriction/ViewRestriction'
 
 import './BacklogPage.scss'
-import ViewRestriction from '../../components/ViewRestriction/ViewRestriction'
 
 const BacklogPage = () => {
   const [createTaskModal, setCreateTaskModal] = useState<boolean>(false)

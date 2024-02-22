@@ -6,9 +6,9 @@ import { IoMdAdd } from 'react-icons/io'
 import AddWorkerModal from '../../components/AddWorkerModal/AddWorkerModal'
 import { useState } from 'react'
 import { sortByRole } from '../../utils/SortByRole'
+import { useAppSelector } from '../../redux/hooks'
 
 import './ProjectUsers.scss'
-import { useAppSelector } from '../../redux/hooks'
 
 const ProjectUsers = () => {
   const [workerModal, setWorkerModal] = useState<boolean>(false)
@@ -16,7 +16,7 @@ const ProjectUsers = () => {
   const { currentProject } = useOutletContext<ProjectOutlet>()
   const auth = useAppSelector((state) => state.auth)
 
-  const workers = currentProject.workers.sort(sortByRole)
+  const workers = [...currentProject.workers].sort(sortByRole)
 
   const handleOpenWorkerModal = () => {
     setWorkerModal(true)

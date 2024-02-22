@@ -19,7 +19,7 @@ const ProjectNavigation = ({ project }: ProjectNavigationProps) => {
         </li>
         <li>
           <NavLink to='/project/history' state={project} replace={true}>
-            Task history
+            Sprint history
           </NavLink>
         </li>
         <li>

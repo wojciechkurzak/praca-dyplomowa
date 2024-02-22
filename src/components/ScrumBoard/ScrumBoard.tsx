@@ -13,12 +13,11 @@ import { arrayMove } from '@dnd-kit/sortable'
 import { createPortal } from 'react-dom'
 import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { Project, Task } from '../../interfaces/Project'
+import { useAppSelector } from '../../redux/hooks'
+import { Task } from '../../interfaces/Project'
 import BoardColumn from '../BoardColumn/BoardColumn'
 import BoardItem from '../BoardItem/BoardItem'
-import { Column } from './ScrumBoardTypes'
-import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
+import { Column, ScrumBoardProps } from './ScrumBoardTypes'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { doc, updateDoc } from 'firebase/firestore'
@@ -41,12 +40,9 @@ const columns: Column[] = [
   },
 ]
 
-const ScrumBoard = () => {
+const ScrumBoard = ({ tasks, setTasks }: ScrumBoardProps) => {
   const { currentProject } = useOutletContext<ProjectOutlet>()
   const projects = useAppSelector((state) => state.projects)
-  const dispatch = useAppDispatch()
-
-  const [tasks, setTasks] = useState<Task[]>(currentProject.tasks)
 
   const [activeTask, setActiveTask] = useState<Task | null>(null)
 
@@ -66,15 +62,11 @@ const ScrumBoard = () => {
   }
 
   const onDragEnd = async () => {
+    if (!currentProject.sprint.isRunning) return
     const newProject = {
       ...currentProject,
       tasks: tasks,
     }
-
-    const newProjects = projects.map((project) => {
-      if (project.id === currentProject.id) return newProject
-      else project
-    })
 
     const isEqual = projects.some(
       (project) =>
@@ -88,8 +80,6 @@ const ScrumBoard = () => {
         await updateDoc(projectRef, {
           tasks: tasks,
         })
-
-        dispatch(changeProjects(newProjects as Project[]))
       } catch (error) {
         toast.error('Something went wrong', toastOptions)
       }
