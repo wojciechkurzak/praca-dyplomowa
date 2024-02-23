@@ -1,11 +1,11 @@
-import { Button } from '@mui/material'
+import { Button, Menu, MenuItem } from '@mui/material'
 import { WorkerCardProps } from './WorkerCardTypes'
-import { IoMdClose } from 'react-icons/io'
+import { IoMdSettings } from 'react-icons/io'
 import { useState } from 'react'
 import DeleteModal from '../DeleteModal/DeleteModal'
 import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
-import { arrayRemove, doc, writeBatch } from 'firebase/firestore'
+import { arrayRemove, arrayUnion, doc, writeBatch } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
@@ -18,11 +18,21 @@ import './WorkerCard.scss'
 
 const WorkerCard = ({ worker }: WorkerCardProps) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
 
   const projects = useAppSelector((state) => state.projects)
   const auth = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
   const { currentProject } = useOutletContext<ProjectOutlet>()
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const handleOpenDeleteModal = () => {
     setDeleteModal(true)
@@ -30,6 +40,36 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
 
   const handleCloseDeleteModal = () => {
     setDeleteModal(false)
+  }
+
+  const handleMakeLeader = async () => {
+    const projectRef = doc(db, 'projects', currentProject.id)
+    const prevLeaderRef = doc(db, 'users', currentProject.leader)
+    const nextLeaderRef = doc(db, 'users', worker.email)
+
+    const batch = writeBatch(db)
+
+    batch.update(prevLeaderRef, {
+      ownProjects: arrayRemove(currentProject.id),
+      sharedProjects: arrayUnion(currentProject.id),
+    })
+    batch.update(nextLeaderRef, {
+      ownProjects: arrayUnion(currentProject.id),
+      sharedProjects: arrayRemove(currentProject.id),
+    })
+    batch.update(projectRef, {
+      leader: worker.email,
+      workers: currentProject.workers.map((currentWorker) => {
+        if (currentWorker.email === worker.email)
+          return { ...currentWorker, role: 'Leader' }
+        else return { ...currentWorker, role: 'Worker' }
+      }),
+    })
+    try {
+      await batch.commit()
+    } catch (error) {
+      toast.error('Something went wrong', toastOptions)
+    }
   }
 
   const handleDeleteWorker = async () => {
@@ -82,13 +122,24 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
       </div>
       <div className='text-left'>
         {worker.role !== 'Leader' && currentProject.leader === auth.email ? (
-          <Button
-            variant='contained'
-            className='delete'
-            onClick={handleOpenDeleteModal}
-          >
-            <IoMdClose size={22} />
-          </Button>
+          <>
+            <Button
+              variant='contained'
+              className='no-projects-button'
+              onClick={handleClick}
+            >
+              <IoMdSettings size={22} />
+            </Button>
+            <Menu
+              className='backlog-task-menu'
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleMakeLeader}>Make leader</MenuItem>
+              <MenuItem onClick={handleOpenDeleteModal}>Delete</MenuItem>
+            </Menu>
+          </>
         ) : (
           <Button variant='contained' className='disabled' disabled={true}>
             <IoBanOutline size={22} />

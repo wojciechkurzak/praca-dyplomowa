@@ -35,7 +35,6 @@ const App = () => {
             uid: user.uid,
             username: user.displayName,
             email: user.email,
-            imageUrl: user.photoURL,
             ownProjects: projects!.ownProjects,
             sharedProjects: projects!.sharedProjects,
           })
@@ -68,7 +67,6 @@ const App = () => {
             uid: null,
             username: null,
             email: null,
-            imageUrl: null,
             ownProjects: [],
             sharedProjects: [],
           })
