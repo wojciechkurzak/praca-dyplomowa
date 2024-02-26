@@ -73,12 +73,22 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
       (currentWorker) => currentWorker.email !== worker.email
     )
 
+    const newTasks = currentProject.tasks.map((task) => {
+      if (task.assignment === worker.email)
+        return {
+          ...task,
+          assignment: 'not assigned',
+        }
+      else return task
+    })
+
     const batch = writeBatch(db)
     const projectRef = doc(db, 'projects', currentProject.id)
     const workerRef = doc(db, 'users', worker.email)
 
     batch.update(projectRef, {
       workers: newWorkers,
+      tasks: newTasks,
     })
     batch.update(workerRef, {
       sharedProjects: arrayRemove(currentProject.id),
