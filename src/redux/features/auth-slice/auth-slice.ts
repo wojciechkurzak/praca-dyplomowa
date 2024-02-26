@@ -29,9 +29,17 @@ const authSlice = createSlice({
     changeOwnProjects(state, action: PayloadAction<string[]>) {
       state.ownProjects = action.payload
     },
+    changeSharedProjects(state, action: PayloadAction<string[]>) {
+      state.sharedProjects = action.payload
+    },
   },
 })
 
-export const { changeAuthState, changeUsername, changeOwnProjects, changeUID } =
-  authSlice.actions
+export const {
+  changeAuthState,
+  changeUsername,
+  changeOwnProjects,
+  changeSharedProjects,
+  changeUID,
+} = authSlice.actions
 export default authSlice.reducer

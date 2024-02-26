@@ -7,9 +7,7 @@ import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
 import { arrayRemove, arrayUnion, doc, writeBatch } from 'firebase/firestore'
 import { db } from '../../config/firebase/firebase'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
-import { Project } from '../../interfaces/Project'
+import { useAppSelector } from '../../redux/hooks'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { IoBanOutline } from 'react-icons/io5'
@@ -21,9 +19,7 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
-  const projects = useAppSelector((state) => state.projects)
   const auth = useAppSelector((state) => state.auth)
-  const dispatch = useAppDispatch()
   const { currentProject } = useOutletContext<ProjectOutlet>()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -77,28 +73,12 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
       (currentWorker) => currentWorker.email !== worker.email
     )
 
-    const newProjects = projects.map((project) => {
-      if (currentProject.id === project.id)
-        return {
-          ...project,
-          workers: newWorkers,
-        }
-      else return project
-    })
-
     const batch = writeBatch(db)
     const projectRef = doc(db, 'projects', currentProject.id)
     const workerRef = doc(db, 'users', worker.email)
 
-    const workerToDelete = currentProject.workers.find(
-      (currentWorker) => currentWorker.email === worker.email
-    )
-
     batch.update(projectRef, {
-      workers: arrayRemove({
-        email: workerToDelete!.email,
-        role: 'Worker',
-      }),
+      workers: newWorkers,
     })
     batch.update(workerRef, {
       sharedProjects: arrayRemove(currentProject.id),
@@ -106,7 +86,6 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
 
     try {
       await batch.commit()
-      dispatch(changeProjects(newProjects as Project[]))
       handleCloseDeleteModal()
     } catch (error) {
       toast.error('Something went wrong', toastOptions)

@@ -2,22 +2,17 @@ import { Button, Modal, TextField } from '@mui/material'
 import { useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { AddUserModalProps } from './AddWorkerModalTypes'
 import { db } from '../../config/firebase/firebase'
 import { arrayUnion, doc, getDoc, writeBatch } from 'firebase/firestore'
 import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
-import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
 
 import './AddWorkerModal.scss'
 
 const AddWorkerModal = ({ isOpen, closeModal }: AddUserModalProps) => {
   const [email, setEmail] = useState<string>('')
-
   const { currentProject } = useOutletContext<ProjectOutlet>()
-  const projects = useAppSelector((state) => state.projects)
-  const dispatch = useAppDispatch()
 
   const handleAddWorker = async () => {
     if (currentProject.workers.find((worker) => worker.email === email)) {
@@ -33,21 +28,6 @@ const AddWorkerModal = ({ isOpen, closeModal }: AddUserModalProps) => {
 
       if (workerSnap.exists()) {
         const worker = workerSnap.data()
-        const newWorker = {
-          email: worker.email,
-          imageUrl: worker.imageUrl,
-          username: worker.username,
-          role: 'Worker',
-        }
-        const newProjects = projects.map((project) => {
-          if (project.id === currentProject.id) {
-            return {
-              ...currentProject,
-              workers: [...currentProject.workers, newWorker],
-            }
-          } else return project
-        })
-
         const batch = writeBatch(db)
 
         batch.update(projectRef, {
@@ -61,7 +41,6 @@ const AddWorkerModal = ({ isOpen, closeModal }: AddUserModalProps) => {
         })
 
         await batch.commit()
-        dispatch(changeProjects(newProjects))
         setEmail('')
         closeModal()
       } else {

@@ -16,6 +16,7 @@ import {
 } from 'firebase/firestore'
 import ChatBox from '../../components/ChatBox/ChatBox'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
+import { changeSharedProjects } from '../../redux/features/auth-slice/auth-slice'
 
 import './ProjectPage.scss'
 
@@ -34,7 +35,9 @@ const ProjectPage = () => {
 const ProjectData = () => {
   const [pending, setPending] = useState<boolean>(true)
   const { state } = useLocation()
+  const navigate = useNavigate()
 
+  const auth = useAppSelector((state) => state.auth)
   const projects = useAppSelector((state) => state.projects)
   const dispatch = useAppDispatch()
 
@@ -50,15 +53,13 @@ const ProjectData = () => {
     const querySnapshot = await getDocs(q)
     let usersResponse: Worker[] = []
     querySnapshot.forEach((doc) => {
-      const worker = project.workers.find(
-        (worker: Worker) => worker.email === doc.data().email
-      )
       usersResponse = [
         ...usersResponse,
         {
           email: doc.data().email,
           username: doc.data().username,
-          role: worker!.role,
+          role:
+            currentProject.leader === doc.data().email ? 'Leader' : 'Worker',
         },
       ]
     })
@@ -69,13 +70,31 @@ const ProjectData = () => {
     const unsubscribe = onSnapshot(
       doc(db, 'projects', currentProject.id),
       async (doc) => {
-        const workers = await handleGetUsers(currentProject)
-        const newProjects = projects.map(
-          (project) =>
-            project.id === currentProject.id && {
-              ...doc.data(),
-              workers: workers,
-            }
+        if (!doc.exists()) return
+        const newCurrentProject = doc.data() as Project
+        if (
+          !newCurrentProject.workers.find(
+            (worker: Worker) => worker.email === auth.email
+          )
+        ) {
+          dispatch(
+            changeSharedProjects([
+              ...auth.sharedProjects.filter(
+                (id) => id !== newCurrentProject.id
+              ),
+            ])
+          )
+          navigate('/home', { replace: true })
+          return
+        }
+        const workers = await handleGetUsers(newCurrentProject)
+        const newProjects = projects.map((project) =>
+          project.id === currentProject.id
+            ? {
+                ...doc.data(),
+                workers: [...workers],
+              }
+            : project
         )
         dispatch(changeProjects(newProjects as Project[]))
         setPending(false)

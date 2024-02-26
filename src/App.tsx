@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from './config/firebase/firebase'
-import { useAppDispatch } from './redux/hooks'
+import { useAppDispatch, useAppSelector } from './redux/hooks'
 import { changeAuthState } from './redux/features/auth-slice/auth-slice'
 import Loading from './components/Loading/Loading'
 import { ToastContainer } from 'react-toastify'
@@ -24,25 +24,28 @@ const App = () => {
   const [pending, setPending] = useState(true)
 
   const dispatch = useAppDispatch()
+  const projects = useAppSelector((state) => state.projects)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log(user)
       if (user) {
         const response = await getDoc(doc(db, 'users', user.email!))
-        const projects = response.data()
+        const projectsRes = response.data()
         dispatch(
           changeAuthState({
             uid: user.uid,
             username: user.displayName,
             email: user.email,
-            ownProjects: projects!.ownProjects,
-            sharedProjects: projects!.sharedProjects,
+            ownProjects: projectsRes!.ownProjects,
+            sharedProjects: projectsRes!.sharedProjects,
           })
         )
+        if (projects.length !== 0) return
         const projectsRef = collection(db, 'projects')
         const projectsID = [
-          ...projects!.ownProjects,
-          ...projects!.sharedProjects,
+          ...projectsRes!.ownProjects,
+          ...projectsRes!.sharedProjects,
         ]
         if (projectsID.length === 0) {
           dispatch(changeProjects([]))

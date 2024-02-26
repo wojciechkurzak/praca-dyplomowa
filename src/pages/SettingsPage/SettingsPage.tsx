@@ -9,9 +9,9 @@ import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
+import ViewRestriction from '../../components/ViewRestriction/ViewRestriction'
 
 import './SettingsPage.scss'
-import ViewRestriction from '../../components/ViewRestriction/ViewRestriction'
 
 const SettingsPage = () => {
   const { currentProject } = useOutletContext<ProjectOutlet>()
@@ -56,10 +56,8 @@ const SettingsPage = () => {
   }
 
   const handleDeleteProject = async () => {
-    const newProjects = projects.filter(
-      (project) => project.id !== currentProject.id
-    )
     const projectRef = doc(db, 'projects', currentProject.id)
+    const chatsRef = doc(db, 'chats', currentProject.id)
     const batch = writeBatch(db)
 
     currentProject.workers.forEach((worker) => {
@@ -74,11 +72,11 @@ const SettingsPage = () => {
       }
     })
     batch.delete(projectRef)
+    batch.delete(chatsRef)
 
     try {
-      await batch.commit()
-      dispatch(changeProjects(newProjects))
       navigate('/home', { replace: true })
+      await batch.commit()
       handleCloseDeleteModal()
     } catch (error) {
       toast.error('Something went wrong', toastOptions)
