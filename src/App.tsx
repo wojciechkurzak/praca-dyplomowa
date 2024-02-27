@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from './config/firebase/firebase'
 import { useAppDispatch, useAppSelector } from './redux/hooks'
@@ -22,13 +22,13 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const [pending, setPending] = useState(true)
+  const navigate = useNavigate()
 
   const dispatch = useAppDispatch()
   const projects = useAppSelector((state) => state.projects)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log(user)
       if (user) {
         const response = await getDoc(doc(db, 'users', user.email!))
         const projectsRes = response.data()
@@ -83,6 +83,13 @@ const App = () => {
       unsubscribe()
     }
   }, [])
+
+  useEffect(() => {
+    if (!pending) {
+      if (!auth) navigate('/login', { replace: true })
+      else navigate('/home', { replace: true })
+    }
+  }, [pending])
 
   return (
     <div className='app'>
