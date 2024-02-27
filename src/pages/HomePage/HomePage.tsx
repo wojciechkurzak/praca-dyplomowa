@@ -21,6 +21,7 @@ const HomePage = () => {
 
 const HomeData = () => {
   const [createProjectModal, setCreateProjectModal] = useState<boolean>(false)
+  const [pending, setPending] = useState<boolean>(true)
 
   const projects = useAppSelector((state) => state.projects)
   const user = useAppSelector((state) => state.auth)
@@ -61,13 +62,14 @@ const HomeData = () => {
       ]
     })
     dispatch(changeProjects(projectsResponse))
+    setPending(false)
   }
 
   useEffect(() => {
     handleGetProjects()
   }, [])
 
-  return (
+  return !pending ? (
     <main className='home-page'>
       <HomeTopBar title='Dashboard' />
       <section className='content'>
@@ -96,6 +98,8 @@ const HomeData = () => {
         closeModal={handleCloseCreateProjectModal}
       />
     </main>
+  ) : (
+    <Loading />
   )
 }
 
