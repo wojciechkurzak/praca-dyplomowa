@@ -74,17 +74,24 @@ const ChatBox = ({ project }: ChatBoxProps) => {
           <p>Group chat</p>
         </div>
         <div className='messages'>
-          {messages.map((message) => (
-            <div
-              className={
-                message.author === auth.email ? 'bubble my-message' : 'bubble'
-              }
-              key={message.id}
-            >
-              <p className='author'>{message.author}</p>
-              <p className='content'>{message.content}</p>
-            </div>
-          ))}
+          {messages.map((message) => {
+            const author = project.workers.find(
+              (worker) => worker.email === message.author
+            )
+            return (
+              <div
+                className={
+                  message.author === auth.email ? 'bubble my-message' : 'bubble'
+                }
+                key={message.id}
+              >
+                <p className='author'>
+                  {author ? author.username : 'unknown user'}
+                </p>
+                <p className='content'>{message.content}</p>
+              </div>
+            )
+          })}
           <div ref={bottomOfMessages}></div>
         </div>
         <div className='input'>
