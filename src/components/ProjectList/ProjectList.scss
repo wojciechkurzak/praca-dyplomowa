@@ -43,3 +43,18 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .project-list {
+    align-items: center;
+
+    .title {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .list {
+      justify-content: center;
+    }
+  }
+}

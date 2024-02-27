@@ -7,9 +7,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 100px;
-    gap: 10px;
-    padding: 8px 20px;
+    min-width: 50px;
+    height: 40px;
+    padding: 0 10px;
     background-color: #ff6745;
     transition: background-color 0.2s;
     border: 2px solid #923622;
@@ -19,9 +19,26 @@
     &:hover {
       background-color: #db583b;
     }
+
+    svg {
+      display: none;
+    }
   }
 
   .open {
     background-color: #db583b;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .user-profile {
+    button {
+      .user-name {
+        display: none;
+      }
+      svg {
+        display: block;
+      }
+    }
   }
 }

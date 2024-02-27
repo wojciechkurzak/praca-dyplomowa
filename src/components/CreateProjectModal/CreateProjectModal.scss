@@ -33,3 +33,19 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .create-project-modal {
+    form {
+      width: 260px;
+    }
+  }
+}
+
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  .create-project-modal {
+    overflow: auto;
+    max-height: 365px;
+    height: 90vh;
+  }
+}

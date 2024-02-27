@@ -8,6 +8,7 @@ import UserName from '../UserName/UserName'
 import UserEmail from '../UserEmail/UserEmail'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { IoMdPerson } from 'react-icons/io'
 
 import './UserProfile.scss'
 
@@ -39,6 +40,7 @@ const UserProfile = () => {
     <div className='user-profile'>
       <button onClick={handleClick} className={open ? 'open' : ''}>
         <UserName username={user.username} />
+        <IoMdPerson size={22} color='#fff' />
       </button>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <UserName username={user.username} size={24} />
