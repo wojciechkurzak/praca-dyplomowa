@@ -16,10 +16,10 @@
   }
 }
 
-@media screen and (max-width: 480px) {
-  .login-form-container {
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .auth-form-container {
     form {
-      width: 250px;
+      width: 240px;
     }
   }
 }
