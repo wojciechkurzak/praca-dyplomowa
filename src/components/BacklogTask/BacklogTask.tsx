@@ -11,9 +11,9 @@ import { toast } from 'react-toastify'
 import { toastOptions } from '../../config/toasts/toastOptions'
 import { useOutletContext } from 'react-router-dom'
 import { ProjectOutlet } from '../../pages/ProjectPage/ProjectPageTypes'
+import EditTaskModal from '../EditTaskModal/EditTaskModal'
 
 import './BacklogTask.scss'
-import EditTaskModal from '../EditTaskModal/EditTaskModal'
 
 const BacklogTask = ({ task }: BacklogTaskProps) => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false)
@@ -114,7 +114,7 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
   return (
     <>
       <div className='backlog-task'>
-        <span>{task.title}</span>
+        <span className='task-title'>{task.title}</span>
         <div className='text-left'>
           <span>{task.status}</span>
           <span>{task.assignment ? task.assignment : 'not assigned'}</span>

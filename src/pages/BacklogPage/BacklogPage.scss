@@ -87,3 +87,28 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .backlog-page {
+    h2 {
+      font-size: 22px;
+    }
+    .MuiButton-root {
+      font-size: 12px;
+    }
+    .title {
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .backlog-sprint {
+    .sprint {
+      .text-upper {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  }
+}

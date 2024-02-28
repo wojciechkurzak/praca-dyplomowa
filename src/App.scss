@@ -93,6 +93,7 @@ body {
   .MuiPaper-root {
     background-color: #111;
     padding: 10px 18px;
+    transform: scale(0.9) !important;
 
     ul {
       display: flex;

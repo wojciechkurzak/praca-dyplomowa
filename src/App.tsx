@@ -85,10 +85,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (!pending) {
-      if (!auth) navigate('/login', { replace: true })
-      else navigate('/home', { replace: true })
-    }
+    if (!pending && !auth) navigate('/login', { replace: true })
   }, [pending])
 
   return (
