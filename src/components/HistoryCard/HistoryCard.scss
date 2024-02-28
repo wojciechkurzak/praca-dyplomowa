@@ -28,17 +28,53 @@
       color: #bbb;
     }
 
-    .tasks {
+    .task {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       background-color: #151515;
       padding: 10px 14px;
       border-radius: 4px;
+      gap: 20px;
+
+      span {
+        word-wrap: break-word;
+      }
     }
 
     .no-tasks {
       display: flex;
       justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .history-card {
+    .sprint {
+      .task {
+        flex-direction: column;
+
+        span {
+          text-align: center;
+
+          &:nth-child(1) {
+            width: 100%;
+            border-bottom: 2px solid #ff6745;
+            padding-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .history-card {
+    .text-upper {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
   }
 }

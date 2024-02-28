@@ -12,7 +12,7 @@ const HistoryCard = ({ sprint }: HistoryCardProps) => {
       <div className='sprint'>
         {sprint.tasks.length !== 0 ? (
           sprint.tasks.map((task) => (
-            <div className='tasks' key={task.id}>
+            <div className='task' key={task.id}>
               <span>{task.title}</span>
               <span>{task.assignment}</span>
             </div>
