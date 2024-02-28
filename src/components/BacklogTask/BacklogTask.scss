@@ -10,9 +10,10 @@
   span {
     display: block;
     color: #fff;
+    word-wrap: break-word;
   }
 
-  .text-left {
+  .options {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -45,7 +46,7 @@
       text-align: center;
     }
 
-    .text-left {
+    .options {
       flex-wrap: wrap;
       gap: 20px 30px;
       justify-content: center;

@@ -115,7 +115,7 @@ const BacklogTask = ({ task }: BacklogTaskProps) => {
     <>
       <div className='backlog-task'>
         <span className='task-title'>{task.title}</span>
-        <div className='text-left'>
+        <div className='options'>
           <span>{task.status}</span>
           <span>{task.assignment ? task.assignment : 'not assigned'}</span>
           <Button
