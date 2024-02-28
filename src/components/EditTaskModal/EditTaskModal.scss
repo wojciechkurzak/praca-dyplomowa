@@ -44,3 +44,19 @@
     color: #ccc;
   }
 }
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .edit-task-modal {
+    form {
+      width: 260px;
+    }
+  }
+}
+
+@media screen and (max-height: 480px) and (orientation: landscape) {
+  .edit-task-modal {
+    overflow: auto;
+    max-height: 372px;
+    height: 90vh;
+  }
+}
