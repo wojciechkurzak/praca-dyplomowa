@@ -17,6 +17,7 @@ import {
 import ChatBox from '../../components/ChatBox/ChatBox'
 import { changeProjects } from '../../redux/features/projects-slice/projects-slice'
 import { changeSharedProjects } from '../../redux/features/auth-slice/auth-slice'
+import { changeProjectNavigationState } from '../../redux/features/project-navigation-slice/project-navigation-slice'
 
 import './ProjectPage.scss'
 
@@ -96,6 +97,7 @@ const ProjectData = () => {
               }
             : project
         )
+        dispatch(changeProjectNavigationState(false))
         dispatch(changeProjects(newProjects as Project[]))
         setPending(false)
       }
