@@ -22,6 +22,11 @@ const CreateTaskModal = ({ isOpen, closeModal }: CreateTaskModalProps) => {
   const dispatch = useAppDispatch()
 
   const handleCreateTask = async () => {
+    if (!title) {
+      toast.error('Inputs cannot be empty', toastOptions)
+      return
+    }
+
     const newTask = {
       id: uuid(),
       title: title,

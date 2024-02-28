@@ -30,6 +30,11 @@ const EditTaskModal = ({ isOpen, closeModal, task }: EditTaskModalProps) => {
   const dispatch = useAppDispatch()
 
   const handleEditTask = async () => {
+    if (!title || !assignment || !status) {
+      toast.error('Inputs cannot be empty', toastOptions)
+      return
+    }
+
     if (
       (title === task.title &&
         assignment === task.assignment &&

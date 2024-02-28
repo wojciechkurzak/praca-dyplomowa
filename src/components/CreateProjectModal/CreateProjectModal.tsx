@@ -26,8 +26,6 @@ const CreateProjectModal = ({
   const dispatch = useAppDispatch()
 
   const handleCreateProject = async () => {
-    if (!user) return
-
     if (!title || !description) {
       toast.error('Inputs cannot be empty', toastOptions)
       return

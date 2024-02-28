@@ -15,6 +15,11 @@ const AddWorkerModal = ({ isOpen, closeModal }: AddUserModalProps) => {
   const { currentProject } = useOutletContext<ProjectOutlet>()
 
   const handleAddWorker = async () => {
+    if (!email) {
+      toast.error('Inputs cannot be empty', toastOptions)
+      return
+    }
+
     if (currentProject.workers.find((worker) => worker.email === email)) {
       toast.error('User is already in project', toastOptions)
       return
