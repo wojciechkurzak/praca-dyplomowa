@@ -47,6 +47,7 @@ const HomeData = () => {
     const projectsID = [...user.ownProjects, ...user.sharedProjects]
     if (projectsID.length === 0) {
       dispatch(changeProjects([]))
+      setPending(false)
       return
     }
     const q = query(projectsRef, where('__name__', 'in', projectsID))
