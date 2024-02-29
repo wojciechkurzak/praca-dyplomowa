@@ -59,8 +59,7 @@ const ProjectData = () => {
         {
           email: doc.data().email,
           username: doc.data().username,
-          role:
-            currentProject.leader === doc.data().email ? 'Leader' : 'Worker',
+          role: project.leader === doc.data().email ? 'Leader' : 'Worker',
         },
       ]
     })
@@ -97,11 +96,11 @@ const ProjectData = () => {
               }
             : project
         )
-        dispatch(changeProjectNavigationState(false))
         dispatch(changeProjects(newProjects as Project[]))
         setPending(false)
       }
     )
+    dispatch(changeProjectNavigationState(false))
     return () => {
       unsubscribe()
     }
