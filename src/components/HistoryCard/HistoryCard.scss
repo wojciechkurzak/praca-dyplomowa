@@ -38,7 +38,10 @@
       gap: 20px;
 
       span {
-        word-wrap: break-word;
+        &:nth-child(1) {
+          word-break: break-word;
+          word-wrap: break-word;
+        }
       }
     }
 
