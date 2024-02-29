@@ -5,7 +5,7 @@
   background-color: #151515;
   padding: 10px 20px;
   border-radius: 4px;
-  height: 54px;
+  gap: 20px;
 
   span {
     display: block;
@@ -14,13 +14,14 @@
 
   .text-right {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     min-width: 320px;
     max-width: 700px;
     width: 100%;
+    flex-wrap: wrap;
 
     .username {
-      flex-basis: 20%;
+      flex-basis: 40%;
     }
 
     .email {
@@ -30,7 +31,7 @@
     }
 
     .role {
-      flex-basis: 40%;
+      flex-basis: 20%;
       text-align: center;
     }
   }
@@ -55,6 +56,41 @@
       svg {
         color: #333;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .worker-card {
+    .text-right {
+      flex-direction: column;
+      min-width: auto;
+
+      .username {
+        flex-basis: auto;
+      }
+
+      .email {
+        flex-basis: auto;
+        text-align: start;
+      }
+
+      .role {
+        flex-basis: auto;
+        text-align: start;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .worker-card {
+    flex-direction: column;
+    gap: 10px;
+
+    .text-right {
+      align-items: center;
+      gap: 4px;
     }
   }
 }
