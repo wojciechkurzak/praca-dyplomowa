@@ -108,3 +108,20 @@
   bottom: 20px;
   right: 20px;
 }
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  .chat-box {
+    width: 250px;
+    height: 75vh;
+    max-height: 450px;
+  }
+}
+
+@media screen and (max-height: 560px) and (orientation: landscape) {
+  .chat-box {
+    bottom: 10px;
+    top: 10px;
+    right: 90px;
+    height: 90vh;
+  }
+}
