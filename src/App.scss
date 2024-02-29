@@ -102,6 +102,11 @@ body {
       gap: 6px;
       list-style-type: none;
 
+      .sign-out {
+        width: 120px;
+        justify-content: center;
+      }
+
       li {
         color: #fff;
         border: 1px solid #ff6745;

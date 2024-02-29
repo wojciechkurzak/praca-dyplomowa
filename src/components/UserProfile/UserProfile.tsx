@@ -45,7 +45,7 @@ const UserProfile = () => {
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <UserName username={user.username} size={24} />
         <UserEmail email={user.email} size={18} color='#666' />
-        <MenuItem>
+        <MenuItem className='sign-out'>
           <a onClick={handleSignOut}>
             <FaSignOutAlt color='#e00' size={22} /> Sign out
           </a>
