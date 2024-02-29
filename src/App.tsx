@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from './config/firebase/firebase'
 import { useAppDispatch, useAppSelector } from './redux/hooks'
@@ -23,6 +23,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const App = () => {
   const [pending, setPending] = useState(true)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const dispatch = useAppDispatch()
   const projects = useAppSelector((state) => state.projects)
@@ -86,6 +87,8 @@ const App = () => {
 
   useEffect(() => {
     if (!pending && !auth) navigate('/login', { replace: true })
+    else if (!pending && auth && location.pathname === '/')
+      navigate('/home', { replace: true })
   }, [pending])
 
   return (
