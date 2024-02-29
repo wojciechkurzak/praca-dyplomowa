@@ -1,6 +1,5 @@
 .project-page {
   background-color: #292929;
-  min-height: 100vh;
 
   .project-main {
     display: flex;
@@ -9,7 +8,7 @@
       width: 100%;
       padding: 30px 40px;
       overflow: auto;
-      height: calc(100vh - 50px);
+      height: calc(100dvh - 50px);
     }
   }
 }

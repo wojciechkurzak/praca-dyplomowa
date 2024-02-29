@@ -1,12 +1,12 @@
 .home-page {
   position: relative;
-  height: 100vh;
+  height: 100dvh;
   background-color: #292929;
   z-index: 1;
 
   .content {
     padding: 0 30px;
-    height: calc(100vh - 50px);
+    height: calc(100dvh - 50px);
     overflow: auto;
   }
 }
