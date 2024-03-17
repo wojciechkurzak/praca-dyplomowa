@@ -95,6 +95,10 @@ body {
     padding: 10px 18px;
     transform: scale(0.9) !important;
 
+    .Mui-disabled {
+      color: #999 !important;
+    }
+
     ul {
       display: flex;
       flex-direction: column;

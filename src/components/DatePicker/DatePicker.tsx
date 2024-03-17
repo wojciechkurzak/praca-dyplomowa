@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateCalendar } from '@mui/x-date-pickers'
@@ -15,6 +16,12 @@ const DatePicker = ({ date, setDate }: DatePickerProps) => {
   const open = Boolean(anchorEl)
 
   const { currentProject } = useOutletContext<ProjectOutlet>()
+  const currentDate = new Date().toISOString().split('T')[0]
+
+  const disabledDates = (dateParam: any) => {
+    const dates = dateParam.toISOString().split('T')[0]
+    return dates < currentDate
+  }
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -52,6 +59,7 @@ const DatePicker = ({ date, setDate }: DatePickerProps) => {
           <DateCalendar
             value={date}
             onChange={(newValue) => setDate(newValue)}
+            shouldDisableDate={disabledDates}
           />
         </LocalizationProvider>
       </Menu>
